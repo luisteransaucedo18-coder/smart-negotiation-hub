@@ -122,3 +122,14 @@ export type Trip = {
   lastEmergencyAt?: unknown;
   createdAt?: unknown;
 };
+
+export type ChatMessage = {
+  id: string;
+  tripId: string;
+  fromUserId: string;
+  fromName: string;
+  fromRole: Role;
+  text: string;
+  createdAt?: unknown;
+  localOnly?: boolean;
+};

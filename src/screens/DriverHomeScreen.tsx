@@ -32,22 +32,26 @@ export default function DriverHomeScreen({ driverProfile, pendingRides, driverAc
 
   return (
     <View>
-      <Text style={sharedStyles.title}>Panel del conductor</Text>
-      <Text style={sharedStyles.subtitle}>Revisa solicitudes, envía oferta y mantén tu puntaje de confianza.</Text>
+      <Text style={sharedStyles.title}>Panel del conductor verificado</Text>
+      <Text style={sharedStyles.subtitle}>Elige solicitudes, envia contraofertas rentables y protege tu puntaje evitando cancelaciones o cambios de precio.</Text>
       {driverProfile && (
         <AppCard>
           <View style={sharedStyles.rowBetween}>
             <View style={{ flex: 1 }}>
               <Text style={sharedStyles.sectionTitle}>{driverProfile.name}</Text>
-              <Text style={sharedStyles.text}>{driverProfile.vehicleColor ? `${driverProfile.vehicleColor} · ` : ""}{driverProfile.vehicle} · {driverProfile.plate}</Text>
-              <Text style={sharedStyles.text}>⭐ {driverProfile.rating} · {driverProfile.completedTrips} viajes</Text>
+              <Text style={sharedStyles.text}>{driverProfile.vehicleColor ? `${driverProfile.vehicleColor} - ` : ""}{driverProfile.vehicle} - {driverProfile.plate}</Text>
+              <Text style={sharedStyles.text}>Licencia: {driverProfile.licenseNumber || "validada"}</Text>
+              <Text style={sharedStyles.text}>{driverProfile.rating} estrellas - {driverProfile.completedTrips} viajes completados</Text>
             </View>
             <TrustScoreBadge score={driverProfile.trustScore} />
           </View>
           <VerificationChecklist compact />
-          <Text style={sharedStyles.text}>Cancelaciones: {(driverProfile.cancellationRate * 100).toFixed(0)}%</Text>
-          <Text style={sharedStyles.text}>Estado: {driverProfile.penaltyStatus === "none" ? "Sin penalización" : "Advertencia activa"}</Text>
-          <AppButton title="Simular penalización por cancelación" onPress={onPenalty} variant="warning" />
+          <View style={styles.driverStats}>
+            <Text style={styles.statText}>Cancelaciones: {(driverProfile.cancellationRate * 100).toFixed(0)}%</Text>
+            <Text style={styles.statText}>Estado: {getPenaltyLabel(driverProfile.penaltyStatus)}</Text>
+          </View>
+          <Text style={styles.infoText}>Un mejor historial aumenta la confianza del pasajero y ayuda a aceptar ofertas mas justas.</Text>
+          <AppButton title="Simular penalizacion por cancelacion" onPress={onPenalty} variant="warning" />
         </AppCard>
       )}
       {driverActiveTrip && (
@@ -58,12 +62,12 @@ export default function DriverHomeScreen({ driverProfile, pendingRides, driverAc
           <Text style={sharedStyles.text}>A: {driverActiveTrip.originName}</Text>
           <Text style={sharedStyles.text}>B: {driverActiveTrip.destinationName}</Text>
           <Text style={sharedStyles.text}>Estado: {getTripStatusLabel(driverActiveTrip.status)}</Text>
-          <Text style={styles.locked}>Tarifa pactada: S/ {driverActiveTrip.finalPrice.toFixed(2)}</Text>
+          <Text style={styles.locked}>Precio protegido: S/ {driverActiveTrip.finalPrice.toFixed(2)}</Text>
           <AppButton title="Ver viaje activo" onPress={() => onOpenActiveTrip(driverActiveTrip)} />
         </AppCard>
       )}
       <AppCard>
-        <Text style={sharedStyles.label}>Tu contraoferta</Text>
+        <Text style={sharedStyles.label}>Tu contraoferta rentable</Text>
         <TextInput
           style={[sharedStyles.input, offerHint ? styles.inputWarning : null]}
           value={driverOfferPrice}
@@ -73,15 +77,15 @@ export default function DriverHomeScreen({ driverProfile, pendingRides, driverAc
           returnKeyType="done"
         />
         {firstRide ? (
-          offerHint ? <Text style={sharedStyles.fieldError}>{offerHint}</Text> : <Text style={sharedStyles.fieldOk}>Oferta lista para enviar.</Text>
+          offerHint ? <Text style={sharedStyles.fieldError}>{offerHint}</Text> : <Text style={sharedStyles.fieldOk}>Oferta lista dentro del rango justo.</Text>
         ) : (
-          <Text style={sharedStyles.fieldHelp}>Cuando haya una solicitud, este monto se enviará como contraoferta.</Text>
+          <Text style={sharedStyles.fieldHelp}>Cuando haya una solicitud, este monto se enviara como contraoferta.</Text>
         )}
       </AppCard>
       {pendingRides.length === 0 && (
         <AppCard>
           <Text style={sharedStyles.sectionTitle}>No hay solicitudes pendientes</Text>
-          <Text style={sharedStyles.text}>Cuando un pasajero publique un viaje, aparecerá aquí.</Text>
+          <Text style={sharedStyles.text}>Cuando un pasajero publique un viaje en Trujillo, aparecera aqui.</Text>
         </AppCard>
       )}
       {pendingRides.map((ride) => (
@@ -90,21 +94,31 @@ export default function DriverHomeScreen({ driverProfile, pendingRides, driverAc
           <Text style={sharedStyles.text}>A: {ride.originName}</Text>
           <Text style={sharedStyles.text}>B: {ride.destinationName}</Text>
           <Text style={sharedStyles.text}>Distancia: {ride.distanceKm} km</Text>
-          <Text style={sharedStyles.text}>Rango: S/ {ride.minRecommendedPrice.toFixed(2)} - S/ {ride.maxRecommendedPrice.toFixed(2)}</Text>
-          {ride.safeNightMode && <Text style={styles.safe}>Viaje seguro nocturno solicitado</Text>}
-          {ride.quietMode && <Text style={styles.safe}>Preferencia: modo silencioso</Text>}
+          <Text style={sharedStyles.text}>Rango justo: S/ {ride.minRecommendedPrice.toFixed(2)} - S/ {ride.maxRecommendedPrice.toFixed(2)}</Text>
+          <Text style={styles.locked}>Propuesta del pasajero: S/ {ride.passengerPrice.toFixed(2)} protegida si aceptas.</Text>
+          {ride.safeNightMode && <Text style={styles.safe}>Viaje seguro nocturno solicitado: prioriza verificacion y ruta compartida.</Text>}
+          {ride.quietMode && <Text style={styles.safe}>Preferencia: modo silencioso.</Text>}
           {!!ride.passengerNote && <Text style={sharedStyles.text}>Nota: {ride.passengerNote}</Text>}
-          <AppButton title={`Aceptar por S/ ${ride.passengerPrice.toFixed(2)}`} onPress={() => onSendOffer(ride, ride.passengerPrice)} loading={saving} />
+          <AppButton title={`Aceptar precio protegido S/ ${ride.passengerPrice.toFixed(2)}`} onPress={() => onSendOffer(ride, ride.passengerPrice)} loading={saving} />
           <AppButton title="Enviar contraoferta" onPress={() => onSendOffer(ride)} variant="secondary" loading={saving} />
-          <AppButton title="Simular cancelación" onPress={() => onCancelRide(ride)} variant="ghost" />
+          <AppButton title="Simular cancelacion" onPress={() => onCancelRide(ride)} variant="ghost" />
         </AppCard>
       ))}
     </View>
   );
 }
 
+function getPenaltyLabel(status: DriverProfile["penaltyStatus"]) {
+  if (status === "none") return "Sin penalizacion";
+  if (status === "warning_simulated") return "Advertencia activa";
+  return "Restringido por cancelaciones";
+}
+
 const styles = StyleSheet.create({
-  locked: { color: colors.secondaryDark, fontWeight: "900", backgroundColor: colors.successSoft, padding: 10, borderRadius: 12, marginTop: 6 },
-  safe: { color: colors.primaryDark, fontWeight: "900", marginBottom: 5 },
+  locked: { color: colors.secondaryDark, fontWeight: "900", backgroundColor: colors.successSoft, padding: 10, borderRadius: 10, marginTop: 6, marginBottom: 6, borderWidth: 1, borderColor: "#B7E8CF" },
+  safe: { color: colors.primaryDark, fontWeight: "900", marginBottom: 5, lineHeight: 20 },
   inputWarning: { borderColor: colors.warning, backgroundColor: "#FFFBEB" },
+  driverStats: { flexDirection: "row", flexWrap: "wrap", gap: 8, marginVertical: 8 },
+  statText: { backgroundColor: colors.surfaceSoft, borderWidth: 1, borderColor: colors.border, borderRadius: 999, paddingHorizontal: 10, paddingVertical: 6, color: colors.text, fontWeight: "800", fontSize: 12 },
+  infoText: { color: colors.textMuted, lineHeight: 20, marginBottom: 10 },
 });

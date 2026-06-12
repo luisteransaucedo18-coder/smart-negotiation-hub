@@ -28,13 +28,13 @@ export default function TripMap(props: Props) {
 }
 
 const styles = StyleSheet.create({
-  map: { height: 240, borderRadius: 24, overflow: "hidden", backgroundColor: "#BFDBFE", marginBottom: 18, justifyContent: "center", padding: 18 },
+  map: { height: 240, borderRadius: 12, overflow: "hidden", backgroundColor: "#EAF3FF", marginBottom: 18, justifyContent: "center", padding: 18, borderWidth: 1, borderColor: colors.border },
   routeLine: { position: "absolute", width: 4, height: 150, left: 58, top: 45, borderRadius: 999, backgroundColor: colors.primary, transform: [{ rotate: "35deg" }] },
   marker: { position: "absolute", width: 42, height: 42, borderRadius: 999, alignItems: "center", justifyContent: "center", backgroundColor: colors.primary, borderWidth: 3, borderColor: "#FFFFFF" },
   origin: { left: 34, top: 48 },
-  destination: { left: 95, bottom: 44, backgroundColor: colors.danger },
+  destination: { left: 95, bottom: 44, backgroundColor: colors.secondary },
   markerText: { color: "#FFFFFF", fontWeight: "900" },
-  card: { backgroundColor: "rgba(255,255,255,0.88)", borderRadius: 20, padding: 16, marginLeft: 120 },
+  card: { backgroundColor: "rgba(255,255,255,0.92)", borderRadius: 12, padding: 16, marginLeft: 110, flexShrink: 1 },
   title: { color: colors.text, fontWeight: "900", fontSize: 16, marginBottom: 6 },
   text: { color: "#334155", marginBottom: 3, fontWeight: "700" },
   note: { color: colors.textMuted, marginTop: 6, fontSize: 12, lineHeight: 17 },

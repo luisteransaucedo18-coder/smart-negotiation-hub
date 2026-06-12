@@ -24,14 +24,14 @@ export default function TripMap({ originName, destinationName }: Props) {
 }
 
 const styles = StyleSheet.create({
-  container: { minHeight: 290, borderRadius: 26, overflow: "hidden", marginBottom: 16, backgroundColor: colors.surface },
-  mapArea: { minHeight: 220, backgroundColor: "#DDF4FF", alignItems: "center", justifyContent: "center", position: "relative" },
+  container: { minHeight: 290, borderRadius: 12, overflow: "hidden", marginBottom: 16, backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border },
+  mapArea: { minHeight: 220, backgroundColor: "#EAF3FF", alignItems: "center", justifyContent: "center", position: "relative" },
   title: { fontSize: 23, fontWeight: "900", color: colors.primaryDark },
   subtitle: { marginTop: 6, color: colors.textMuted, textAlign: "center" },
-  pointA: { position: "absolute", left: 42, top: 48, width: 38, height: 38, borderRadius: 19, backgroundColor: colors.primary, alignItems: "center", justifyContent: "center" },
-  pointB: { position: "absolute", right: 42, bottom: 48, width: 38, height: 38, borderRadius: 19, backgroundColor: colors.danger, alignItems: "center", justifyContent: "center" },
+  pointA: { position: "absolute", left: 42, top: 48, width: 38, height: 38, borderRadius: 19, backgroundColor: colors.primary, alignItems: "center", justifyContent: "center", borderWidth: 3, borderColor: "#FFFFFF" },
+  pointB: { position: "absolute", right: 42, bottom: 48, width: 38, height: 38, borderRadius: 19, backgroundColor: colors.secondary, alignItems: "center", justifyContent: "center", borderWidth: 3, borderColor: "#FFFFFF" },
   pointText: { color: "#FFFFFF", fontWeight: "900" },
-  routeLine: { position: "absolute", width: "58%", height: 4, backgroundColor: colors.primary, transform: [{ rotate: "24deg" }], opacity: 0.8 },
+  routeLine: { position: "absolute", width: "58%", height: 5, backgroundColor: colors.primary, transform: [{ rotate: "24deg" }], opacity: 0.85, borderRadius: 999 },
   infoBox: { backgroundColor: "#FFFFFF", padding: 16 },
   infoTitle: { fontSize: 15, fontWeight: "900", color: colors.text, marginBottom: 4 },
   infoText: { color: colors.textMuted, marginBottom: 2 },

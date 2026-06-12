@@ -31,15 +31,15 @@ export default function AppButton({ title, onPress, variant = "primary", loading
 }
 
 const styles = StyleSheet.create({
-  button: { paddingVertical: 15, paddingHorizontal: 16, borderRadius: 16, alignItems: "center", justifyContent: "center", marginTop: 10 },
+  button: { minHeight: 50, width: "100%", paddingVertical: 14, paddingHorizontal: 16, borderRadius: 10, alignItems: "center", justifyContent: "center", marginTop: 10 },
   primary: { backgroundColor: colors.primary },
-  secondary: { backgroundColor: colors.primarySoft },
+  secondary: { backgroundColor: colors.primarySoft, borderWidth: 1, borderColor: "#C7D7FE" },
   danger: { backgroundColor: colors.danger },
   ghost: { backgroundColor: "transparent" },
   success: { backgroundColor: colors.success },
-  warning: { backgroundColor: colors.warningSoft },
+  warning: { backgroundColor: colors.warningSoft, borderWidth: 1, borderColor: "#FDE68A" },
   disabled: { opacity: 0.55 },
-  text: { fontSize: 16, fontWeight: "900", textAlign: "center" },
+  text: { fontSize: 16, fontWeight: "900", textAlign: "center", flexShrink: 1 },
   primaryText: { color: "#FFFFFF" },
   secondaryText: { color: colors.primaryDark },
   dangerText: { color: "#FFFFFF" },

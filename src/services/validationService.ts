@@ -17,31 +17,31 @@ export function validateRegisterForm({
   name: string; dni: string; email: string; password: string; role: Role; vehicle: string; vehicleColor: string; plate: string; licenseNumber: string;
   emergencyContactName: string; emergencyContactPhone: string; emergencyContactRelationship: string;
 }) {
-  if (!isValidFullName(name)) return "Ingresa nombre y apellido. Ejemplo: Ana Torres.";
-  if (!isValidDni(dni)) return "Ingresa un DNI válido de 8 dígitos.";
-  if (!isValidEmail(email)) return "Ingresa un correo válido.";
-  if (!isValidPassword(password)) return "La contraseña debe tener mínimo 6 caracteres.";
+  if (!isValidFullName(name)) return "Ingresa nombre y apellido. Ejemplo: Luis Teran.";
+  if (!isValidDni(dni)) return "Ingresa un DNI valido de 8 digitos.";
+  if (!isValidEmail(email)) return "Ingresa un correo valido.";
+  if (!isValidPassword(password)) return "La contrasena debe tener minimo 6 caracteres.";
   if (!isValidFullName(emergencyContactName)) return "Ingresa nombre y apellido del contacto de emergencia.";
-  if (!isValidPhone(emergencyContactPhone)) return "Ingresa un teléfono peruano válido de 9 dígitos que empiece en 9.";
+  if (!isValidPhone(emergencyContactPhone)) return "Ingresa un telefono peruano valido de 9 digitos que empiece en 9.";
   if (emergencyContactRelationship.trim().length < 3) return "Ingresa el parentesco del contacto de emergencia.";
   if (role === "driver") {
-    if (vehicle.trim().length < 3) return "Ingresa el modelo del vehículo.";
-    if (vehicleColor.trim().length < 3) return "Ingresa el color del vehículo.";
-    if (!isValidPlate(plate)) return "Ingresa una placa válida. Ejemplo: ABC-123.";
-    if (!isValidLicense(licenseNumber)) return "Ingresa un número de licencia válido.";
+    if (vehicle.trim().length < 3) return "Ingresa el modelo del vehiculo.";
+    if (vehicleColor.trim().length < 3) return "Ingresa el color del vehiculo.";
+    if (!isValidPlate(plate)) return "Ingresa una placa valida. Ejemplo: ABC-123.";
+    if (!isValidLicense(licenseNumber)) return "Ingresa un numero de licencia valido.";
   }
   return null;
 }
 
 export function validateLoginForm(email: string, password: string) {
-  if (!isValidEmail(email)) return "Ingresa un correo válido.";
-  if (!password) return "Ingresa tu contraseña.";
+  if (!isValidEmail(email)) return "Ingresa un correo valido.";
+  if (!password) return "Ingresa tu contrasena.";
   return null;
 }
 
 export function validatePrice(price: number, min: number, max: number) {
-  if (!Number.isFinite(price) || price <= 0) return "Ingresa una tarifa válida mayor a cero.";
-  if (price < min) return `La tarifa está por debajo del rango recomendado. Mínimo sugerido: S/ ${min.toFixed(2)}.`;
-  if (price > max * 1.45) return "La tarifa está demasiado alejada del rango sugerido.";
+  if (!Number.isFinite(price) || price <= 0) return "Ingresa una tarifa valida mayor a cero.";
+  if (price < min) return `La tarifa esta por debajo del rango justo. Minimo sugerido: S/ ${min.toFixed(2)}.`;
+  if (price > max * 1.45) return "La tarifa esta demasiado alejada del rango sugerido.";
   return null;
 }

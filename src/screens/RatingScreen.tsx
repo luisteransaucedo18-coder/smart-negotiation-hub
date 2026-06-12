@@ -13,36 +13,50 @@ export default function RatingScreen({ trip, rating, setRating, comment, setComm
   return (
     <View>
       <Text style={sharedStyles.title}>Calificar viaje</Text>
-      <Text style={sharedStyles.subtitle}>Tu opinión ayuda a mejorar el puntaje de confianza del conductor.</Text>
+      <Text style={sharedStyles.subtitle}>Tu opinion alimenta el puntaje de confianza y ayuda a mantener conductores verificados.</Text>
       <AppCard>
-        <Text style={sharedStyles.sectionTitle}>{trip.driverName}</Text>
-        <Text style={sharedStyles.text}>{trip.vehicle} · {trip.plate}</Text>
+        <View style={styles.summary}>
+          <View style={styles.avatar}><Text style={styles.avatarText}>M</Text></View>
+          <View style={{ flex: 1 }}>
+            <Text style={sharedStyles.sectionTitle}>{trip.driverName}</Text>
+            <Text style={sharedStyles.text}>{trip.vehicle} - {trip.plate}</Text>
+            <Text style={styles.price}>Precio protegido: S/ {trip.finalPrice.toFixed(2)}</Text>
+          </View>
+        </View>
         <View style={styles.starsRow}>
           {[1, 2, 3, 4, 5].map((star) => (
-            <TouchableOpacity key={star} onPress={() => setRating(star)}><Text style={styles.star}>{star <= rating ? "★" : "☆"}</Text></TouchableOpacity>
+            <TouchableOpacity key={star} onPress={() => setRating(star)} style={styles.starButton}>
+              <Text style={[styles.star, star <= rating && styles.starActive]}>{star <= rating ? "★" : "☆"}</Text>
+            </TouchableOpacity>
           ))}
         </View>
-        <Text style={sharedStyles.fieldOk}>Calificación seleccionada: {rating}/5</Text>
+        <Text style={sharedStyles.fieldOk}>Calificacion seleccionada: {rating}/5</Text>
         <Text style={sharedStyles.label}>Comentario opcional</Text>
         <TextInput
           style={[sharedStyles.input, styles.comment]}
           value={comment}
           onChangeText={setComment}
-          placeholder="Ejemplo: Llegó puntual y respetó la tarifa"
+          placeholder="Ejemplo: Llego puntual y respeto la tarifa pactada"
           multiline
           maxLength={160}
           textAlignVertical="top"
           returnKeyType="done"
         />
         <Text style={commentLength > 145 ? sharedStyles.fieldError : sharedStyles.fieldHelp}>{commentLength}/160 caracteres.</Text>
-        <AppButton title="Enviar calificación" onPress={onSubmit} loading={saving} />
+        <AppButton title="Enviar calificacion" onPress={onSubmit} loading={saving} />
       </AppCard>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  starsRow: { flexDirection: "row", marginVertical: 18 },
-  star: { fontSize: 42, color: colors.warning, marginRight: 8 },
+  summary: { flexDirection: "row", gap: 12, alignItems: "center", marginBottom: 8 },
+  avatar: { width: 54, height: 54, borderRadius: 12, backgroundColor: colors.primaryDark, alignItems: "center", justifyContent: "center" },
+  avatarText: { color: "#FFFFFF", fontWeight: "900", fontSize: 20 },
+  price: { color: colors.secondaryDark, fontWeight: "900" },
+  starsRow: { flexDirection: "row", flexWrap: "wrap", marginVertical: 14, justifyContent: "space-between", gap: 8 },
+  starButton: { flex: 1, minWidth: 48, height: 48, alignItems: "center", justifyContent: "center", backgroundColor: colors.surfaceSoft, borderRadius: 10, borderWidth: 1, borderColor: colors.border },
+  star: { fontSize: 30, color: colors.textMuted },
+  starActive: { color: colors.warning },
   comment: { minHeight: 102, textAlignVertical: "top" },
 });

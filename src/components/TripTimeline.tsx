@@ -28,8 +28,8 @@ export default function TripTimeline({ status }: { status: TripStatus }) {
 }
 
 const styles = StyleSheet.create({
-  row: { flexDirection: "row", justifyContent: "space-between", gap: 6, marginBottom: 16 },
-  step: { flex: 1, alignItems: "center" },
+  row: { flexDirection: "row", justifyContent: "space-between", gap: 6, marginBottom: 16, flexWrap: "wrap" },
+  step: { flex: 1, minWidth: 68, alignItems: "center" },
   dot: { width: 16, height: 16, borderRadius: 8, backgroundColor: "#CBD5E1", marginBottom: 6 },
   activeDot: { backgroundColor: colors.primary },
   label: { fontSize: 11, color: colors.textMuted, textAlign: "center", fontWeight: "800" },

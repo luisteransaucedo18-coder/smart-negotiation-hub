@@ -1,0 +1,324 @@
+Starting project at C:\Users\luist\Downloads\proyecto diseño\smart-negotiation-hub
+React Compiler enabled
+Starting Metro Bundler
+Waiting on http://localhost:8081
+Logs for your project will appear below.
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ node_modules\expo-router\node\render.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ node_modules\expo-router\node\render.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+Web node_modules\expo-router\entry.js ▓▓▓░░░░░░░░░░░░░ 19.1% ( 7/16)
+λ node_modules\expo-router\node\render.js ▓▓░░░░░░░░░░░░░░ 15.0% ( 74/191)
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ node_modules\expo-router\node\render.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+Web node_modules\expo-router\entry.js ▓▓▓▓░░░░░░░░░░░░ 29.8% ( 27/121)
+λ node_modules\expo-router\node\render.js ▓▓▓▓▓░░░░░░░░░░░ 37.0% (250/411)
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ node_modules\expo-router\node\render.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+Web node_modules\expo-router\entry.js ▓▓▓▓▓▓░░░░░░░░░░ 38.7% (237/381)
+λ node_modules\expo-router\node\render.js ▓▓▓▓▓▓▓▓▓▓░░░░░░ 65.0% (474/588)
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ node_modules\expo-router\node\render.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+Web node_modules\expo-router\entry.js ▓▓▓▓▓▓▓▓▓▓▓░░░░░ 71.4% (528/625)
+λ node_modules\expo-router\node\render.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░ 88.1% (695/756)
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ node_modules\expo-router\node\render.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+| Dynamic import at line 16: require(moduleName). This module may not work as intended when deployed to a runtime.
+Web node_modules\expo-router\entry.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░ 93.6% (771/797)
+λ node_modules\expo-router\node\render.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░ 97.5% (946/958)
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ node_modules\expo-router\node\render.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 20906ms node_modules\expo-router\node\render.js (958 modules)
+λ Bundled 19977ms node_modules\expo-router\node\render.js (1 module)
+Web node_modules\expo-router\entry.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░ 99.8% (805/806)
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+Web Bundled 23431ms node_modules\expo-router\entry.js (806 modules)
+Web Bundled 22559ms node_modules\expo-router\entry.js (1 module)
+Web node_modules\expo-router\entry.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░ 99.8% (806/807)
+Web Bundled 3904ms node_modules\expo-router\entry.js (807 modules)
+ LOG  [web] Logs will appear in the browser console
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 66ms node_modules\expo-router\node\render.js (1 module)
+Web Bundled 471ms node_modules\expo-router\entry.js (1 module)
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 42ms node_modules\expo-router\node\render.js (1 module)
+Web Bundled 781ms node_modules\expo-router\entry.js (1 module)
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+Web Bundled 110ms node_modules\expo-router\entry.js (1 module)
+λ Bundled 156ms node_modules\expo-router\node\render.js (1 module)
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 21ms node_modules\expo-router\node\render.js (1 module)
+Web Bundled 351ms node_modules\expo-router\entry.js (1 module)
+Web Bundled 51ms node_modules\expo-router\entry.js (1 module)
+ LOG  [web] Logs will appear in the browser console
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 45ms node_modules\expo-router\node\render.js (1 module)
+Web Bundled 436ms node_modules\expo-router\entry.js (1 module)
+Unable to resolve "./screens/LandingScreen" from "src\App.tsx"
+[0m [90m  6 |[39m [36mimport[39m [33mAppHeader[39m [36mfrom[39m [32m"./components/AppHeader"[39m[33m;[39m
+ [90m  7 |[39m [36mimport[39m [33mLocationPicker[39m [36mfrom[39m [32m"./components/LocationPicker"[39m[33m;[39m
+[31m[1m>[22m[39m[90m  8 |[39m [36mimport[39m [33mLandingScreen[39m [36mfrom[39m [32m"./screens/LandingScreen"[39m[33m;[39m
+ [90m    |[39m                            [31m[1m^[22m[39m
+ [90m  9 |[39m [36mimport[39m [33mAuthScreen[39m [36mfrom[39m [32m"./screens/AuthScreen"[39m[33m;[39m
+ [90m 10 |[39m [36mimport[39m [33mPassengerHomeScreen[39m [36mfrom[39m [32m"./screens/PassengerHomeScreen"[39m[33m;[39m
+ [90m 11 |[39m [36mimport[39m [33mWaitingOffersScreen[39m [36mfrom[39m [32m"./screens/WaitingOffersScreen"[39m[33m;[39m[0m
+
+Import stack:
+
+ src\App.tsx
+ | import "./screens/LandingScreen"
+
+ app\(tabs)\index.tsx
+ | import "../../src/App"
+
+ app (require.context)
+
+Unable to resolve "../components/HeroBanner" from "src\screens\LandingScreen.tsx"
+[0m [90m 2 |[39m [36mimport[39m { [33mStyleSheet[39m[33m,[39m [33mText[39m[33m,[39m [33mView[39m } [36mfrom[39m [32m"react-native"[39m[33m;[39m
+ [90m 3 |[39m [36mimport[39m [33mAppButton[39m [36mfrom[39m [32m"../components/AppButton"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 4 |[39m [36mimport[39m [33mHeroBanner[39m [36mfrom[39m [32m"../components/HeroBanner"[39m[33m;[39m
+ [90m   |[39m                         [31m[1m^[22m[39m
+ [90m 5 |[39m [36mimport[39m [33mSmartHubLogo[39m [36mfrom[39m [32m"../components/SmartHubLogo"[39m[33m;[39m
+ [90m 6 |[39m [36mimport[39m { colors } [36mfrom[39m [32m"../theme/colors"[39m[33m;[39m
+ [90m 7 |[39m[0m
+
+Import stack:
+
+ src\screens\LandingScreen.tsx
+ | import "../components/HeroBanner"
+
+ src\App.tsx
+ | import "./screens/LandingScreen"
+
+ app\(tabs)\index.tsx
+ | import "../../src/App"
+
+ app (require.context)
+
+Unable to resolve "../components/PriceCard" from "src\screens\PassengerHomeScreen.tsx"
+[0m [90m 3 |[39m [36mimport[39m [33mAppButton[39m [36mfrom[39m [32m"../components/AppButton"[39m[33m;[39m
+ [90m 4 |[39m [36mimport[39m [33mAppCard[39m [36mfrom[39m [32m"../components/AppCard"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m [33mPriceCard[39m [36mfrom[39m [32m"../components/PriceCard"[39m[33m;[39m
+ [90m   |[39m                        [31m[1m^[22m[39m
+ [90m 6 |[39m [36mimport[39m [33mToggleChip[39m [36mfrom[39m [32m"../components/ToggleChip"[39m[33m;[39m
+ [90m 7 |[39m [36mimport[39m { colors } [36mfrom[39m [32m"../theme/colors"[39m[33m;[39m
+ [90m 8 |[39m [36mimport[39m { sharedStyles } [36mfrom[39m [32m"../theme/sharedStyles"[39m[33m;[39m[0m
+
+Import stack:
+
+ src\screens\PassengerHomeScreen.tsx
+ | import "../components/PriceCard"
+
+ src\App.tsx
+ | import "./screens/PassengerHomeScreen"
+
+ app\(tabs)\index.tsx
+ | import "../../src/App"
+
+ app (require.context)
+
+Unable to resolve "../components/VerificationChecklist" from "src\screens\WaitingOffersScreen.tsx"
+[0m [90m  5 |[39m [36mimport[39m [33mDriverMiniCard[39m [36mfrom[39m [32m"../components/DriverMiniCard"[39m[33m;[39m
+ [90m  6 |[39m [36mimport[39m [33mPriceCard[39m [36mfrom[39m [32m"../components/PriceCard"[39m[33m;[39m
+[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m [33mVerificationChecklist[39m [36mfrom[39m [32m"../components/VerificationChecklist"[39m[33m;[39m
+ [90m    |[39m                                    [31m[1m^[22m[39m
+ [90m  8 |[39m [36mimport[39m { [33mOffer[39m[33m,[39m [33mRideRequest[39m } [36mfrom[39m [32m"../types"[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m { colors } [36mfrom[39m [32m"../theme/colors"[39m[33m;[39m
+ [90m 10 |[39m [36mimport[39m { sharedStyles } [36mfrom[39m [32m"../theme/sharedStyles"[39m[33m;[39m[0m
+
+Import stack:
+
+ src\screens\WaitingOffersScreen.tsx
+ | import "../components/VerificationChecklist"
+
+ src\App.tsx
+ | import "./screens/WaitingOffersScreen"
+
+ app\(tabs)\index.tsx
+ | import "../../src/App"
+
+ app (require.context)
+
+Unable to resolve "./screens/PassengerHomeScreen" from "src\App.tsx"
+[0m [90m  8 |[39m [36mimport[39m [33mLandingScreen[39m [36mfrom[39m [32m"./screens/LandingScreen"[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m [33mAuthScreen[39m [36mfrom[39m [32m"./screens/AuthScreen"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 10 |[39m [36mimport[39m [33mPassengerHomeScreen[39m [36mfrom[39m [32m"./screens/PassengerHomeScreen"[39m[33m;[39m
+ [90m    |[39m                                  [31m[1m^[22m[39m
+ [90m 11 |[39m [36mimport[39m [33mWaitingOffersScreen[39m [36mfrom[39m [32m"./screens/WaitingOffersScreen"[39m[33m;[39m
+ [90m 12 |[39m [36mimport[39m [33mDriverHomeScreen[39m [36mfrom[39m [32m"./screens/DriverHomeScreen"[39m[33m;[39m
+ [90m 13 |[39m [36mimport[39m [33mActiveTripScreen[39m [36mfrom[39m [32m"./screens/ActiveTripScreen"[39m[33m;[39m[0m
+
+Import stack:
+
+ src\App.tsx
+ | import "./screens/PassengerHomeScreen"
+
+ app\(tabs)\index.tsx
+ | import "../../src/App"
+
+ app (require.context)
+
+Unable to resolve "./screens/WaitingOffersScreen" from "src\App.tsx"
+[0m [90m  9 |[39m [36mimport[39m [33mAuthScreen[39m [36mfrom[39m [32m"./screens/AuthScreen"[39m[33m;[39m
+ [90m 10 |[39m [36mimport[39m [33mPassengerHomeScreen[39m [36mfrom[39m [32m"./screens/PassengerHomeScreen"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 11 |[39m [36mimport[39m [33mWaitingOffersScreen[39m [36mfrom[39m [32m"./screens/WaitingOffersScreen"[39m[33m;[39m
+ [90m    |[39m                                  [31m[1m^[22m[39m
+ [90m 12 |[39m [36mimport[39m [33mDriverHomeScreen[39m [36mfrom[39m [32m"./screens/DriverHomeScreen"[39m[33m;[39m
+ [90m 13 |[39m [36mimport[39m [33mActiveTripScreen[39m [36mfrom[39m [32m"./screens/ActiveTripScreen"[39m[33m;[39m
+ [90m 14 |[39m [36mimport[39m [33mRatingScreen[39m [36mfrom[39m [32m"./screens/RatingScreen"[39m[33m;[39m[0m
+
+Import stack:
+
+ src\App.tsx
+ | import "./screens/WaitingOffersScreen"
+
+ app\(tabs)\index.tsx
+ | import "../../src/App"
+
+ app (require.context)
+
+Unable to resolve "../components/DriverMiniCard" from "src\screens\WaitingOffersScreen.tsx"
+[0m [90m 3 |[39m [36mimport[39m [33mAppButton[39m [36mfrom[39m [32m"../components/AppButton"[39m[33m;[39m
+ [90m 4 |[39m [36mimport[39m [33mAppCard[39m [36mfrom[39m [32m"../components/AppCard"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m [33mDriverMiniCard[39m [36mfrom[39m [32m"../components/DriverMiniCard"[39m[33m;[39m
+ [90m   |[39m                             [31m[1m^[22m[39m
+ [90m 6 |[39m [36mimport[39m [33mPriceCard[39m [36mfrom[39m [32m"../components/PriceCard"[39m[33m;[39m
+ [90m 7 |[39m [36mimport[39m [33mVerificationChecklist[39m [36mfrom[39m [32m"../components/VerificationChecklist"[39m[33m;[39m
+ [90m 8 |[39m [36mimport[39m { [33mOffer[39m[33m,[39m [33mRideRequest[39m } [36mfrom[39m [32m"../types"[39m[33m;[39m[0m
+
+Import stack:
+
+ src\screens\WaitingOffersScreen.tsx
+ | import "../components/DriverMiniCard"
+
+ src\App.tsx
+ | import "./screens/WaitingOffersScreen"
+
+ app\(tabs)\index.tsx
+ | import "../../src/App"
+
+ app (require.context)
+
+Unable to resolve "./screens/DriverHomeScreen" from "src\App.tsx"
+[0m [90m 10 |[39m [36mimport[39m [33mPassengerHomeScreen[39m [36mfrom[39m [32m"./screens/PassengerHomeScreen"[39m[33m;[39m
+ [90m 11 |[39m [36mimport[39m [33mWaitingOffersScreen[39m [36mfrom[39m [32m"./screens/WaitingOffersScreen"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 12 |[39m [36mimport[39m [33mDriverHomeScreen[39m [36mfrom[39m [32m"./screens/DriverHomeScreen"[39m[33m;[39m
+ [90m    |[39m                               [31m[1m^[22m[39m
+ [90m 13 |[39m [36mimport[39m [33mActiveTripScreen[39m [36mfrom[39m [32m"./screens/ActiveTripScreen"[39m[33m;[39m
+ [90m 14 |[39m [36mimport[39m [33mRatingScreen[39m [36mfrom[39m [32m"./screens/RatingScreen"[39m[33m;[39m
+ [90m 15 |[39m [36mimport[39m { sharedStyles } [36mfrom[39m [32m"./theme/sharedStyles"[39m[33m;[39m[0m
+
+Import stack:
+
+ src\App.tsx
+ | import "./screens/DriverHomeScreen"
+
+ app\(tabs)\index.tsx
+ | import "../../src/App"
+
+ app (require.context)
+
+Unable to resolve "../components/EmergencyBanner" from "src\screens\DriverHomeScreen.tsx"
+[0m [90m 3 |[39m [36mimport[39m [33mAppButton[39m [36mfrom[39m [32m"../components/AppButton"[39m[33m;[39m
+ [90m 4 |[39m [36mimport[39m [33mAppCard[39m [36mfrom[39m [32m"../components/AppCard"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m [33mEmergencyBanner[39m [36mfrom[39m [32m"../components/EmergencyBanner"[39m[33m;[39m
+ [90m   |[39m                              [31m[1m^[22m[39m
+ [90m 6 |[39m [36mimport[39m [33mTrustScoreBadge[39m [36mfrom[39m [32m"../components/TrustScoreBadge"[39m[33m;[39m
+ [90m 7 |[39m [36mimport[39m [33mVerificationChecklist[39m [36mfrom[39m [32m"../components/VerificationChecklist"[39m[33m;[39m
+ [90m 8 |[39m [36mimport[39m { [33mDriverProfile[39m[33m,[39m [33mRideRequest[39m[33m,[39m [33mTrip[39m } [36mfrom[39m [32m"../types"[39m[33m;[39m[0m
+
+Import stack:
+
+ src\screens\DriverHomeScreen.tsx
+ | import "../components/EmergencyBanner"
+
+ src\App.tsx
+ | import "./screens/DriverHomeScreen"
+
+ app\(tabs)\index.tsx
+ | import "../../src/App"
+
+ app (require.context)
+
+Unable to resolve "./screens/ActiveTripScreen" from "src\App.tsx"
+[0m [90m 11 |[39m [36mimport[39m [33mWaitingOffersScreen[39m [36mfrom[39m [32m"./screens/WaitingOffersScreen"[39m[33m;[39m
+ [90m 12 |[39m [36mimport[39m [33mDriverHomeScreen[39m [36mfrom[39m [32m"./screens/DriverHomeScreen"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 13 |[39m [36mimport[39m [33mActiveTripScreen[39m [36mfrom[39m [32m"./screens/ActiveTripScreen"[39m[33m;[39m
+ [90m    |[39m                               [31m[1m^[22m[39m
+ [90m 14 |[39m [36mimport[39m [33mRatingScreen[39m [36mfrom[39m [32m"./screens/RatingScreen"[39m[33m;[39m
+ [90m 15 |[39m [36mimport[39m { sharedStyles } [36mfrom[39m [32m"./theme/sharedStyles"[39m[33m;[39m
+ [90m 16 |[39m [36mimport[39m { colors } [36mfrom[39m [32m"./theme/colors"[39m[33m;[39m[0m
+
+Import stack:
+
+ src\App.tsx
+ | import "./screens/ActiveTripScreen"
+
+ app\(tabs)\index.tsx
+ | import "../../src/App"
+
+ app (require.context)
+
+Unable to resolve "../services/validationService" from "src\screens\AuthScreen.tsx"
+[0m [90m  7 |[39m [36mimport[39m { colors } [36mfrom[39m [32m"../theme/colors"[39m[33m;[39m
+ [90m  8 |[39m [36mimport[39m { sharedStyles } [36mfrom[39m [32m"../theme/sharedStyles"[39m[33m;[39m
+[31m[1m>[22m[39m[90m  9 |[39m [36mimport[39m { isValidDni[33m,[39m isValidEmail[33m,[39m isValidFullName[33m,[39m isValidLicense[33m,[39m isValidPassword[33m,[39m isValidPhone[33m,[39m isValidPlate } [36mfrom[39m [32m"../services/validationService"[39m[33m;[39m
+ [90m    |[39m                                                                                                                         [31m[1m^[22m[39m
+ [90m 10 |[39m
+ [90m 11 |[39m type [33mProps[39m [33m=[39m {
+ [90m 12 |[39m   authMode[33m:[39m [33mAuthMode[39m[33m;[39m setAuthMode[33m:[39m (mode[33m:[39m [33mAuthMode[39m) [33m=>[39m [36mvoid[39m[33m;[39m[0m
+
+Import stack:
+
+ src\screens\AuthScreen.tsx
+ | import "../services/validationService"
+
+ src\App.tsx
+ | import "./screens/AuthScreen"
+
+ app\(tabs)\index.tsx
+ | import "../../src/App"
+
+ app (require.context)
+
+Unable to resolve "./screens/AuthScreen" from "src\App.tsx"
+[0m [90m  7 |[39m [36mimport[39m [33mLocationPicker[39m [36mfrom[39m [32m"./components/LocationPicker"[39m[33m;[39m
+ [90m  8 |[39m [36mimport[39m [33mLandingScreen[39m [36mfrom[39m [32m"./screens/LandingScreen"[39m[33m;[39m
+[31m[1m>[22m[39m[90m  9 |[39m [36mimport[39m [33mAuthScreen[39m [36mfrom[39m [32m"./screens/AuthScreen"[39m[33m;[39m
+ [90m    |[39m                         [31m[1m^[22m[39m
+ [90m 10 |[39m [36mimport[39m [33mPassengerHomeScreen[39m [36mfrom[39m [32m"./screens/PassengerHomeScreen"[39m[33m;[39m
+ [90m 11 |[39m [36mimport[39m [33mWaitingOffersScreen[39m [36mfrom[39m [32m"./screens/WaitingOffersScreen"[39m[33m;[39m
+ [90m 12 |[39m [36mimport[39m [33mDriverHomeScreen[39m [36mfrom[39m [32m"./screens/DriverHomeScreen"[39m[33m;[39m[0m
+
+Import stack:
+
+ src\App.tsx
+ | import "./screens/AuthScreen"
+
+ app\(tabs)\index.tsx
+ | import "../../src/App"
+
+ app (require.context)
+
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+Web Bundled 380ms node_modules\expo-router\entry.js (1 module)
+λ Bundled 497ms node_modules\expo-router\node\render.js (1 module)
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 41ms node_modules\expo-router\node\render.js (1 module)
+Web Bundled 395ms node_modules\expo-router\entry.js (1 module)
+Web Bundled 43ms node_modules\expo-router\entry.js (1 module)
+ LOG  [web] Logs will appear in the browser console
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 87ms node_modules\expo-router\node\render.js (1 module)
+Web Bundled 455ms node_modules\expo-router\entry.js (1 module)
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 35ms node_modules\expo-router\node\render.js (1 module)
+Web Bundled 668ms node_modules\expo-router\entry.js (1 module)
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 42ms node_modules\expo-router\node\render.js (1 module)
+Web Bundled 607ms node_modules\expo-router\entry.js (1 module)
+Web Bundled 333ms node_modules\expo-router\entry.js (1 module)
+ LOG  [web] Logs will appear in the browser console
+Web node_modules\expo-router\entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+λ Bundled 82ms node_modules\expo-router\node\render.js (1 module)
+Web Bundled 1587ms node_modules\expo-router\entry.js (1 module)

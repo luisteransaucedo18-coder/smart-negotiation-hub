@@ -2,8 +2,8 @@ import { addDoc, collection, doc, onSnapshot, query, serverTimestamp, updateDoc,
 import { db } from "../../services/firebase";
 import { RideRequest, UserProfile } from "../types";
 
-export const DEFAULT_ORIGIN = { name: "Universidad UTP", latitude: -8.1116, longitude: -79.0287 };
-export const DEFAULT_DESTINATION = { name: "Mall Aventura", latitude: -8.1025, longitude: -79.0369 };
+export const DEFAULT_ORIGIN = { name: "UTP Trujillo - puerta principal", latitude: -8.1116, longitude: -79.0287 };
+export const DEFAULT_DESTINATION = { name: "Mall Aventura Trujillo", latitude: -8.1025, longitude: -79.0369 };
 
 export async function createRideRequest({ profile, originName, destinationName, distanceKm, suggestedPrice, minRecommendedPrice, maxRecommendedPrice, passengerPrice, originLat, originLng, destinationLat, destinationLng, safeNightMode, quietMode, passengerNote }: {
   profile: UserProfile; originName: string; destinationName: string; distanceKm: number; suggestedPrice: number; minRecommendedPrice: number; maxRecommendedPrice: number; passengerPrice: number; originLat: number; originLng: number; destinationLat: number; destinationLng: number; safeNightMode: boolean; quietMode: boolean; passengerNote: string;

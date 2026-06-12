@@ -147,12 +147,12 @@ export default function LocationPicker({
 
 const styles = StyleSheet.create({
   container: {
-    padding: 22,
+    padding: 16,
     paddingBottom: 50,
     backgroundColor: colors.background,
   },
   title: {
-    fontSize: 30,
+    fontSize: 28,
     fontWeight: "900",
     color: colors.text,
     marginTop: 18,
@@ -165,13 +165,13 @@ const styles = StyleSheet.create({
     marginBottom: 18,
   },
   mapCard: {
-    borderRadius: 26,
+    borderRadius: 12,
     overflow: "hidden",
     backgroundColor: colors.surface,
     marginBottom: 18,
   },
   mapArea: {
-    height: 280,
+    height: 240,
     backgroundColor: "#DDF4FF",
     alignItems: "center",
     justifyContent: "center",

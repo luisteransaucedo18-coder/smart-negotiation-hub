@@ -7,8 +7,8 @@ export default function FadeInView({ children, style }: PropsWithChildren<{ styl
 
   useEffect(() => {
     Animated.parallel([
-      Animated.timing(opacity, { toValue: 1, duration: 360, useNativeDriver: true }),
-      Animated.timing(translateY, { toValue: 0, duration: 360, useNativeDriver: true }),
+      Animated.timing(opacity, { toValue: 1, duration: 360, useNativeDriver: false }),
+      Animated.timing(translateY, { toValue: 0, duration: 360, useNativeDriver: false }),
     ]).start();
   }, [opacity, translateY]);
 

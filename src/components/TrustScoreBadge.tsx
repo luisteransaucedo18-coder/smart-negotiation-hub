@@ -14,10 +14,10 @@ export default function TrustScoreBadge({ score, compact = false }: { score: num
 }
 
 const styles = StyleSheet.create({
-  badge: { borderRadius: 999, paddingVertical: 7, paddingHorizontal: 10, alignItems: "center", minWidth: 76 },
-  strong: { backgroundColor: colors.successSoft },
-  mid: { backgroundColor: colors.warningSoft },
-  low: { backgroundColor: colors.dangerSoft },
+  badge: { borderRadius: 10, paddingVertical: 8, paddingHorizontal: 10, alignItems: "center", minWidth: 76, borderWidth: 1 },
+  strong: { backgroundColor: colors.successSoft, borderColor: "#B7E8CF" },
+  mid: { backgroundColor: colors.warningSoft, borderColor: "#FDE68A" },
+  low: { backgroundColor: colors.dangerSoft, borderColor: "#FDA4AF" },
   score: { fontSize: 14, fontWeight: "900", color: colors.text },
   compactScore: { fontSize: 12 },
   label: { fontSize: 10, color: colors.textMuted, fontWeight: "800" },
