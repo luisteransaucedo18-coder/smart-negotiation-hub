@@ -39,7 +39,7 @@ export default function ActiveTripScreen({ trip, role, chatMessages, chatDraft, 
   return (
     <View>
       <Text style={sharedStyles.title}>Viaje protegido</Text>
-      <Text style={sharedStyles.subtitle}>Tarifa pactada, ruta visible, identidad verificada y herramientas de seguridad durante el trayecto.</Text>
+      <Text style={sharedStyles.subtitle}>Ruta visible, identidad verificada y controles de seguridad.</Text>
       <EmergencyBanner trip={trip} role={role} />
       <TripMap originLat={trip.originLat} originLng={trip.originLng} destinationLat={trip.destinationLat} destinationLng={trip.destinationLng} originName={trip.originName} destinationName={trip.destinationName} />
       <TripTimeline status={trip.status} />
@@ -60,24 +60,24 @@ export default function ActiveTripScreen({ trip, role, chatMessages, chatDraft, 
           <Text style={styles.price}>S/ {trip.finalPrice.toFixed(2)}</Text>
           <Text style={styles.priceHelp}>Esta tarifa queda visible para pasajero y conductor hasta finalizar el viaje.</Text>
         </View>
-        {trip.safeNightMode && <Text style={styles.feature}>OK Viaje seguro nocturno activado para estudiantes y trayectos de noche.</Text>}
-        {trip.quietMode && <Text style={styles.feature}>OK Modo silencioso solicitado.</Text>}
+        {trip.safeNightMode && <Text style={styles.feature}>Activo: viaje seguro nocturno para estudiantes y trayectos de noche.</Text>}
+        {trip.quietMode && <Text style={styles.feature}>Activo: modo silencioso solicitado.</Text>}
         {!!trip.passengerNote && <Text style={sharedStyles.text}>Nota: {trip.passengerNote}</Text>}
       </AppCard>
 
       <AppCard>
         <Text style={sharedStyles.sectionTitle}>Seguridad activa</Text>
         <Text style={sharedStyles.text}>Comparte la ruta con tu contacto de emergencia o activa una alerta si los datos del conductor, vehiculo o ruta no coinciden.</Text>
-        <AppButton title="Compartir ruta con contacto" onPress={onShareRoute} variant="secondary" />
-        <AppButton title="Boton de emergencia" onPress={onEmergency} variant="danger" />
-        {emergencyActive && <AppButton title="Marcar alerta como revisada" onPress={onResolveEmergency} variant="warning" />}
+        <AppButton title="Compartir ruta con contacto" icon="share-variant-outline" onPress={onShareRoute} variant="secondary" />
+        <AppButton title="Boton de emergencia" icon="alarm-light-outline" onPress={onEmergency} variant="danger" />
+        {emergencyActive && <AppButton title="Marcar alerta como revisada" icon="check-circle-outline" onPress={onResolveEmergency} variant="warning" />}
       </AppCard>
 
       <AppCard>
         <Text style={sharedStyles.sectionTitle}>Mensajes rapidos</Text>
-        <AppButton title={isDriver ? "Ya estoy llegando" : "Estoy en el punto indicado"} onPress={() => onQuickMessage(isDriver ? "Ya estoy llegando" : "Estoy en el punto indicado")} variant="secondary" />
-        <AppButton title="Confirmo tarifa pactada" onPress={() => onQuickMessage("Confirmo tarifa pactada")} variant="secondary" />
-        <AppButton title="Confirmo placa y vehiculo" onPress={() => onQuickMessage("Confirmo placa y vehiculo")} variant="secondary" />
+        <AppButton title={isDriver ? "Ya estoy llegando" : "Estoy en el punto indicado"} icon="message-text-outline" onPress={() => onQuickMessage(isDriver ? "Ya estoy llegando" : "Estoy en el punto indicado")} variant="secondary" />
+        <AppButton title="Confirmo tarifa pactada" icon="cash-check" onPress={() => onQuickMessage("Confirmo tarifa pactada")} variant="secondary" />
+        <AppButton title="Confirmo placa y vehiculo" icon="car-info" onPress={() => onQuickMessage("Confirmo placa y vehiculo")} variant="secondary" />
       </AppCard>
 
       <AppCard>
@@ -108,7 +108,7 @@ export default function ActiveTripScreen({ trip, role, chatMessages, chatDraft, 
           maxLength={180}
           textAlignVertical="top"
         />
-        <AppButton title="Enviar mensaje" onPress={onSendChatMessage} variant="secondary" />
+        <AppButton title="Enviar mensaje" icon="send-outline" onPress={onSendChatMessage} variant="secondary" />
       </AppCard>
 
       <AppCard>
@@ -117,23 +117,23 @@ export default function ActiveTripScreen({ trip, role, chatMessages, chatDraft, 
           emergencyActive ? (
             <>
               <Text style={styles.blocked}>Hay una alerta activa. Revisa la situacion y marca la alerta como revisada antes de continuar.</Text>
-              <AppButton title="Volver al panel" onPress={onBackDriverPanel} variant="ghost" />
+              <AppButton title="Volver al panel" icon="view-dashboard-outline" onPress={onBackDriverPanel} variant="ghost" />
             </>
           ) : (
             <>
-              {isDriverOnWay && <AppButton title="Iniciar viaje" onPress={onStart} variant="success" />}
-              {isInProgress && <AppButton title="Finalizar viaje" onPress={onFinish} variant="secondary" />}
+              {isDriverOnWay && <AppButton title="Iniciar viaje" icon="play-circle-outline" onPress={onStart} variant="success" />}
+              {isInProgress && <AppButton title="Finalizar viaje" icon="flag-checkered" onPress={onFinish} variant="secondary" />}
               {isCompleted && (
                 <View style={styles.noticeBox}>
                   <Text style={styles.noticeTitle}>Viaje finalizado</Text>
                   <Text style={styles.noticeText}>El pasajero ya puede calificar. Esa calificacion alimenta el puntaje de confianza.</Text>
                 </View>
               )}
-              <AppButton title="Volver al panel" onPress={onBackDriverPanel} variant="ghost" />
+              <AppButton title="Volver al panel" icon="view-dashboard-outline" onPress={onBackDriverPanel} variant="ghost" />
             </>
           )
         ) : isCompleted ? (
-          <AppButton title="Calificar viaje" onPress={onGoRating} />
+          <AppButton title="Calificar viaje" icon="star-check-outline" onPress={onGoRating} />
         ) : (
           <Text style={styles.blocked}>El conductor controla el inicio y finalizacion. Tu puedes monitorear el estado, compartir ruta o activar seguridad.</Text>
         )}
@@ -143,19 +143,19 @@ export default function ActiveTripScreen({ trip, role, chatMessages, chatDraft, 
 }
 
 const styles = StyleSheet.create({
-  priceBox: { backgroundColor: colors.successSoft, borderRadius: 12, padding: 15, marginVertical: 12, borderWidth: 1, borderColor: "#B7E8CF" },
+  priceBox: { backgroundColor: colors.successSoft, borderRadius: 20, padding: 15, marginVertical: 12 },
   priceLabel: { color: colors.secondaryDark, fontWeight: "900" },
   price: { color: colors.text, fontSize: 28, fontWeight: "900", marginTop: 4 },
   priceHelp: { color: colors.secondaryDark, marginTop: 4 },
   feature: { color: colors.primaryDark, fontWeight: "900", marginBottom: 5, lineHeight: 20 },
-  blocked: { backgroundColor: colors.warningSoft, color: "#92400E", borderRadius: 12, padding: 13, lineHeight: 20, fontWeight: "800", borderWidth: 1, borderColor: "#FDE68A" },
-  noticeBox: { backgroundColor: colors.primarySoft, borderRadius: 12, padding: 13, borderWidth: 1, borderColor: "#C7D7FE" },
+  blocked: { backgroundColor: colors.warningSoft, color: "#7A5518", borderRadius: 20, padding: 13, lineHeight: 20, fontWeight: "800" },
+  noticeBox: { backgroundColor: colors.primarySoft, borderRadius: 20, padding: 13 },
   noticeTitle: { color: colors.primaryDark, fontWeight: "900", marginBottom: 4 },
   noticeText: { color: colors.primaryDark, lineHeight: 20, fontWeight: "700" },
-  chatBox: { backgroundColor: colors.surfaceSoft, borderWidth: 1, borderColor: colors.border, borderRadius: 12, padding: 12, marginBottom: 12 },
+  chatBox: { backgroundColor: colors.surfaceSoft, borderWidth: 1, borderColor: colors.border, borderRadius: 20, padding: 12, marginBottom: 12 },
   emptyChat: { color: colors.textMuted, textAlign: "center", paddingVertical: 12, fontWeight: "700" },
-  messageBubble: { maxWidth: "94%", borderRadius: 12, padding: 10, marginBottom: 9 },
-  ownBubble: { alignSelf: "flex-end", backgroundColor: colors.primary },
+  messageBubble: { maxWidth: "94%", borderRadius: 20, padding: 10, marginBottom: 9 },
+  ownBubble: { alignSelf: "flex-end", backgroundColor: colors.ink },
   otherBubble: { alignSelf: "flex-start", backgroundColor: colors.successSoft },
   messageAuthor: { fontSize: 12, fontWeight: "900", marginBottom: 3 },
   ownAuthor: { color: "#DBEAFE" },

@@ -13,14 +13,14 @@ export default function VerificationChecklist({ compact = false }: { compact?: b
     <View style={[styles.box, compact && styles.compact]}>
       <Text style={styles.title}>Filtro de confianza activo</Text>
       {items.map((item) => (
-        <Text key={item} style={styles.item}>OK {item}</Text>
+        <Text key={item} style={styles.item}>Validado: {item}</Text>
       ))}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  box: { backgroundColor: colors.successSoft, padding: 13, borderRadius: 15, marginTop: 10, marginBottom: 8 },
+  box: { backgroundColor: colors.successSoft, padding: 13, borderRadius: 20, marginTop: 10, marginBottom: 8, borderWidth: 1, borderColor: "#B7E8CF" },
   compact: { padding: 10 },
   title: { color: colors.secondaryDark, fontWeight: "900", marginBottom: 5 },
   item: { color: colors.secondaryDark, fontWeight: "800", marginBottom: 3, lineHeight: 19 },

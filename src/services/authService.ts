@@ -31,13 +31,20 @@ export async function registerUser({
   }
 }
 
-export async function loginUser(email: string, password: string, recoveryProfile?: ProfileInput) {
+export async function loginUser(email: string, password: string, expectedRole: Role, recoveryProfile?: ProfileInput) {
   const credential = await signInWithEmailAndPassword(auth, email, password);
 
-  return getUserProfile(credential.user.uid).catch(async (error) => {
+  const profile = await getUserProfile(credential.user.uid).catch(async (error) => {
     if (!isMissingApplicationProfileError(error) || !recoveryProfile) throw error;
     return saveApplicationProfile(credential.user.uid, { ...recoveryProfile, email });
   });
+
+  if (profile.role !== expectedRole) {
+    await signOut(auth).catch(() => undefined);
+    throw new Error(profile.role === "driver" ? "ROLE_MISMATCH_DRIVER" : "ROLE_MISMATCH_PASSENGER");
+  }
+
+  return profile;
 }
 
 export async function getUserProfile(userId: string) {

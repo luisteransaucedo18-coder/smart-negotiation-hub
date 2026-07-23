@@ -1,17 +1,20 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { ActivityIndicator, Alert, KeyboardAvoidingView, LogBox, Platform, ScrollView, Text, View } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ActivityIndicator, Alert, Keyboard, KeyboardAvoidingView, LogBox, Platform, ScrollView, Text, useWindowDimensions, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../services/firebase";
 import AppHeader from "./components/AppHeader";
+import AppNavigationBar from "./components/AppNavigationBar";
 import LocationPicker from "./components/LocationPicker";
-import LandingScreen from "./screens/LandingScreen";
 import AuthScreen from "./screens/AuthScreen";
 import PassengerHomeScreen from "./screens/PassengerHomeScreen";
 import WaitingOffersScreen from "./screens/WaitingOffersScreen";
 import DriverHomeScreen from "./screens/DriverHomeScreen";
 import ActiveTripScreen from "./screens/ActiveTripScreen";
 import RatingScreen from "./screens/RatingScreen";
+import ProfileScreen from "./screens/ProfileScreen";
+import OnboardingScreen from "./screens/OnboardingScreen";
 import { sharedStyles } from "./theme/sharedStyles";
 import { colors } from "./theme/colors";
 import { AuthMode, ChatMessage, DriverProfile, LocationTarget, Offer, RideRequest, Role, RoutePoint, ScreenName, Trip, UserProfile } from "./types";
@@ -28,18 +31,25 @@ import { createEmergencyAlert } from "./services/emergencyService";
 import { submitTripRating } from "./services/ratingService";
 import { shareRouteSimulated } from "./services/shareService";
 import { listenTripMessages, sendQuickMessage, sendTripMessage } from "./services/messageService";
+import { getCurrentRoutePoint } from "./services/locationService";
 
 LogBox.ignoreLogs([
   "props.pointerEvents is deprecated. Use style.pointerEvents",
 ]);
 
+const ONBOARDING_STORAGE_KEY = "smartHub:onboardingSeen:v2";
+
 export default function SmartHubApp() {
+  const { width, height } = useWindowDimensions();
   const [loading, setLoading] = useState(true);
+  const [checkingOnboarding, setCheckingOnboarding] = useState(true);
+  const [showOnboarding, setShowOnboarding] = useState(false);
   const [saving, setSaving] = useState(false);
   const [authError, setAuthError] = useState("");
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
   const registeringRef = useRef(false);
-  const [screen, setScreen] = useState<ScreenName>("landing");
-  const [authMode, setAuthMode] = useState<AuthMode>("register");
+  const [screen, setScreen] = useState<ScreenName>("auth");
+  const [authMode, setAuthMode] = useState<AuthMode>("login");
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [driverProfile, setDriverProfile] = useState<DriverProfile | null>(null);
   const [driverActiveTrip, setDriverActiveTrip] = useState<Trip | null>(null);
@@ -83,6 +93,39 @@ export default function SmartHubApp() {
   const priceRange = useMemo(() => calculatePriceRange(suggestedPrice), [suggestedPrice]);
 
   useEffect(() => { setPassengerPrice(suggestedPrice.toFixed(2)); }, [suggestedPrice]);
+
+  useEffect(() => {
+    let mounted = true;
+    async function hydrateCurrentLocation() {
+      const currentPoint = await getCurrentRoutePoint();
+      if (!mounted || !currentPoint) return;
+      setOriginPoint(currentPoint);
+    }
+    hydrateCurrentLocation();
+    return () => { mounted = false; };
+  }, []);
+
+  useEffect(() => {
+    let mounted = true;
+    async function loadOnboardingState() {
+      try {
+        if (mounted) setShowOnboarding(true);
+      } finally {
+        if (mounted) setCheckingOnboarding(false);
+      }
+    }
+    loadOnboardingState();
+    return () => { mounted = false; };
+  }, []);
+
+  useEffect(() => {
+    const showSubscription = Keyboard.addListener("keyboardDidShow", () => setKeyboardVisible(true));
+    const hideSubscription = Keyboard.addListener("keyboardDidHide", () => setKeyboardVisible(false));
+    return () => {
+      showSubscription.remove();
+      hideSubscription.remove();
+    };
+  }, []);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
@@ -140,7 +183,7 @@ export default function SmartHubApp() {
   useEffect(() => { if (profile?.role !== "driver") { setDriverActiveTrip(null); return; } return listenDriverActiveTrip(profile.id, setDriverActiveTrip); }, [profile?.id, profile?.role]);
 
   function resetSession() {
-    setProfile(null); setDriverProfile(null); setDriverActiveTrip(null); setCurrentRide(null); setCurrentTripId(null); setActiveTrip(null); setOffers([]); setChatMessages([]); setChatDraft(""); setScreen("landing");
+    setProfile(null); setDriverProfile(null); setDriverActiveTrip(null); setCurrentRide(null); setCurrentTripId(null); setActiveTrip(null); setOffers([]); setChatMessages([]); setChatDraft(""); setAuthMode("login"); setScreen("auth");
   }
 
   async function handleRegister() {
@@ -163,12 +206,24 @@ export default function SmartHubApp() {
       setSaving(true); const cleanEmail = email.trim().toLowerCase();
       const validationMessage = validateLoginForm(cleanEmail, password);
       if (validationMessage) { setAuthError(validationMessage); Alert.alert("Revisa tus datos", validationMessage); return; }
-      const loadedProfile = await loginUser(cleanEmail, password, { name: name.trim(), dni: dni.trim(), email: cleanEmail, role, vehicle: vehicle.trim(), vehicleColor: vehicleColor.trim(), plate: plate.trim().toUpperCase(), licenseNumber: licenseNumber.trim().toUpperCase(), emergencyContactName: emergencyContactName.trim(), emergencyContactPhone: emergencyContactPhone.trim(), emergencyContactRelationship: emergencyContactRelationship.trim() });
+      const loadedProfile = await loginUser(cleanEmail, password, role, { name: name.trim(), dni: dni.trim(), email: cleanEmail, role, vehicle: vehicle.trim(), vehicleColor: vehicleColor.trim(), plate: plate.trim().toUpperCase(), licenseNumber: licenseNumber.trim().toUpperCase(), emergencyContactName: emergencyContactName.trim(), emergencyContactPhone: emergencyContactPhone.trim(), emergencyContactRelationship: emergencyContactRelationship.trim() });
       setProfile(loadedProfile); setScreen(loadedProfile.role === "driver" ? "driverHome" : "passengerHome");
     } catch (error) { const message = getErrorMessage(error); setAuthError(message); Alert.alert("Error al iniciar sesion", message); } finally { setSaving(false); }
   }
 
   async function handleLogout() { await logoutUser(); resetSession(); }
+
+  async function handleCompleteOnboarding() {
+    try {
+      setSaving(true);
+      await AsyncStorage.setItem(ONBOARDING_STORAGE_KEY, "true");
+    } catch {
+      Alert.alert("Modo local", "No se pudo guardar la bienvenida, pero puedes continuar usando la app.");
+    } finally {
+      setShowOnboarding(false);
+      setSaving(false);
+    }
+  }
 
   async function handleCreateRide() {
     try {
@@ -291,26 +346,72 @@ export default function SmartHubApp() {
   async function handlePenalty() { try { if (!driverProfile) return; await applySimulatedPenalty(driverProfile); Alert.alert("Penalizacion aplicada", "El puntaje de confianza fue actualizado."); } catch (error) { Alert.alert("Error", getErrorMessage(error)); } }
 
   const originPickerPoint = locationTarget === "origin" ? originPoint : destinationPoint;
+  const navigationTrip = activeTrip || driverActiveTrip;
+  const showNavigation = !!profile && screen !== "locationPicker";
+  const isLoginScreen = screen === "auth" && authMode === "login";
+  const compactDevice = width < 390 || height < 820;
+  const lockLoginScroll = isLoginScreen && !keyboardVisible && !compactDevice;
 
-  if (loading) return <SafeAreaView style={sharedStyles.safeArea}><View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}><ActivityIndicator size="large" color={colors.primary} /><Text style={{ marginTop: 12, color: colors.textMuted }}>Cargando SmartHub...</Text></View></SafeAreaView>;
+  function handleNavigate(target: ScreenName) {
+    if (!profile) return;
+    if (target === "activeTrip") {
+      if (!navigationTrip) return;
+      setActiveTrip(navigationTrip);
+      setCurrentTripId(navigationTrip.id);
+      setScreen("activeTrip");
+      return;
+    }
+    if (target === "waitingOffers") {
+      if (!currentRide) return;
+      setScreen("waitingOffers");
+      return;
+    }
+    if (target === "driverHome" && profile.role !== "driver") return;
+    if (target === "passengerHome" && profile.role !== "passenger") return;
+    setScreen(target);
+  }
+
+  if (loading || checkingOnboarding) return <SafeAreaView style={sharedStyles.safeArea}><View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}><ActivityIndicator size="large" color={colors.primary} /><Text style={{ marginTop: 12, color: colors.textMuted }}>Cargando SmartHub...</Text></View></SafeAreaView>;
+
+  if (showOnboarding) return <SafeAreaView style={sharedStyles.safeArea}><OnboardingScreen onContinue={handleCompleteOnboarding} saving={saving} /></SafeAreaView>;
 
   return (
     <SafeAreaView style={sharedStyles.safeArea}>
       {screen === "locationPicker" ? (
         <LocationPicker target={locationTarget} initialPoint={originPickerPoint} onCancel={() => setScreen("passengerHome")} onSelect={(point: RoutePoint) => { if (locationTarget === "origin") setOriginPoint(point); else setDestinationPoint(point); setScreen("passengerHome"); }} />
       ) : (
-        <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"} keyboardVerticalOffset={Platform.OS === "ios" ? 72 : 0}>
-        <ScrollView contentContainerStyle={sharedStyles.container} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
-          {screen !== "landing" && <AppHeader profile={profile} onLogout={handleLogout} />}
-          {screen === "landing" && <LandingScreen onLogin={() => { setAuthMode("login"); setScreen("auth"); }} onRegister={() => { setAuthMode("register"); setScreen("auth"); }} />}
-          {screen === "auth" && <AuthScreen authMode={authMode} setAuthMode={setAuthMode} name={name} setName={setName} dni={dni} setDni={setDni} email={email} setEmail={setEmail} password={password} setPassword={setPassword} role={role} setRole={setRole} vehicle={vehicle} setVehicle={setVehicle} vehicleColor={vehicleColor} setVehicleColor={setVehicleColor} plate={plate} setPlate={setPlate} licenseNumber={licenseNumber} setLicenseNumber={setLicenseNumber} emergencyContactName={emergencyContactName} setEmergencyContactName={setEmergencyContactName} emergencyContactPhone={emergencyContactPhone} setEmergencyContactPhone={setEmergencyContactPhone} emergencyContactRelationship={emergencyContactRelationship} setEmergencyContactRelationship={setEmergencyContactRelationship} authError={authError} onSubmit={authMode === "register" ? handleRegister : handleLogin} onBack={() => setScreen("landing")} saving={saving} />}
+        <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"} keyboardVerticalOffset={Platform.OS === "ios" ? (isLoginScreen ? 18 : 72) : 0}>
+        <ScrollView
+          contentContainerStyle={[
+            sharedStyles.container,
+            compactDevice && { paddingHorizontal: 18 },
+            isLoginScreen && !keyboardVisible && !compactDevice && { flexGrow: 1, justifyContent: "center", paddingTop: 8, paddingBottom: 24 },
+            isLoginScreen && !keyboardVisible && compactDevice && { flexGrow: 1, justifyContent: "flex-start", paddingTop: 10, paddingBottom: 44 },
+            isLoginScreen && keyboardVisible && { flexGrow: 1, justifyContent: "flex-start", paddingTop: 12, paddingBottom: 220 },
+          ]}
+          keyboardShouldPersistTaps="handled"
+          scrollEnabled={!lockLoginScroll}
+          showsVerticalScrollIndicator={false}
+        >
+          {screen !== "auth" && <AppHeader profile={profile} onLogout={handleLogout} />}
+          {screen === "auth" && <AuthScreen authMode={authMode} setAuthMode={setAuthMode} name={name} setName={setName} dni={dni} setDni={setDni} email={email} setEmail={setEmail} password={password} setPassword={setPassword} role={role} setRole={setRole} vehicle={vehicle} setVehicle={setVehicle} vehicleColor={vehicleColor} setVehicleColor={setVehicleColor} plate={plate} setPlate={setPlate} licenseNumber={licenseNumber} setLicenseNumber={setLicenseNumber} emergencyContactName={emergencyContactName} setEmergencyContactName={setEmergencyContactName} emergencyContactPhone={emergencyContactPhone} setEmergencyContactPhone={setEmergencyContactPhone} emergencyContactRelationship={emergencyContactRelationship} setEmergencyContactRelationship={setEmergencyContactRelationship} authError={authError} onSubmit={authMode === "register" ? handleRegister : handleLogin} onBack={() => setAuthMode("login")} saving={saving} keyboardVisible={keyboardVisible} />}
           {screen === "passengerHome" && <PassengerHomeScreen originPoint={originPoint} destinationPoint={destinationPoint} onPickOrigin={() => { setLocationTarget("origin"); setScreen("locationPicker"); }} onPickDestination={() => { setLocationTarget("destination"); setScreen("locationPicker"); }} distanceKm={distanceKm} suggestedPrice={suggestedPrice} minPrice={priceRange.min} maxPrice={priceRange.max} passengerPrice={passengerPrice} setPassengerPrice={setPassengerPrice} passengerNote={passengerNote} setPassengerNote={setPassengerNote} isPeakHour={isPeakHour} setIsPeakHour={setIsPeakHour} safeNightMode={safeNightMode} setSafeNightMode={setSafeNightMode} quietMode={quietMode} setQuietMode={setQuietMode} onCreateRide={handleCreateRide} saving={saving} />}
           {screen === "waitingOffers" && <WaitingOffersScreen ride={currentRide} offers={offers} onAcceptOffer={handleAcceptOffer} onBack={() => setScreen("passengerHome")} saving={saving} />}
           {screen === "driverHome" && <DriverHomeScreen driverProfile={driverProfile} pendingRides={pendingRides} driverActiveTrip={driverActiveTrip} driverOfferPrice={driverOfferPrice} setDriverOfferPrice={setDriverOfferPrice} onSendOffer={handleSendOffer} onCancelRide={handleCancelRideByDriver} onOpenActiveTrip={(trip) => { setActiveTrip(trip); setCurrentTripId(trip.id); setScreen("activeTrip"); }} onPenalty={handlePenalty} saving={saving} />}
           {screen === "activeTrip" && activeTrip && profile && <ActiveTripScreen trip={activeTrip} role={profile.role} chatMessages={chatMessages} chatDraft={chatDraft} setChatDraft={setChatDraft} onSendChatMessage={handleSendChatMessage} onStart={handleStartTrip} onFinish={handleFinishTrip} onEmergency={handleEmergency} onResolveEmergency={handleResolveEmergency} onShareRoute={handleShareRoute} onQuickMessage={handleQuickMessage} onGoRating={() => setScreen("rating")} onBackDriverPanel={() => setScreen("driverHome")} />}
           {screen === "rating" && activeTrip && <RatingScreen trip={activeTrip} rating={rating} setRating={setRating} comment={ratingComment} setComment={setRatingComment} onSubmit={handleSubmitRating} saving={saving} />}
+          {screen === "profile" && profile && <ProfileScreen profile={profile} driverProfile={driverProfile} activeTrip={navigationTrip} onOpenActiveTrip={() => handleNavigate("activeTrip")} onLogout={handleLogout} />}
         </ScrollView>
         </KeyboardAvoidingView>
+      )}
+      {showNavigation && profile && (
+        <AppNavigationBar
+          role={profile.role}
+          screen={screen}
+          hasPendingRide={!!currentRide}
+          hasActiveTrip={!!navigationTrip}
+          onNavigate={handleNavigate}
+        />
       )}
     </SafeAreaView>
   );

@@ -21,7 +21,7 @@ export default function DriverMiniCard({ offer }: { offer: Offer }) {
 
 const styles = StyleSheet.create({
   row: { flexDirection: "row", gap: 12, alignItems: "center", flexWrap: "wrap" },
-  avatar: { width: 56, height: 56, borderRadius: 16, backgroundColor: colors.primarySoft },
+  avatar: { width: 56, height: 56, borderRadius: 20, backgroundColor: colors.primarySoft },
   info: { flex: 1, minWidth: 170 },
   name: { fontSize: 17, fontWeight: "900", color: colors.text },
   text: { color: colors.textMuted, fontSize: 13, marginTop: 2 },

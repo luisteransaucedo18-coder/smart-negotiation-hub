@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TextInput, TouchableOpacity, useWindowDimensions, View } from "react-native";
 import AppButton from "../components/AppButton";
 import AppCard from "../components/AppCard";
 import PriceCard from "../components/PriceCard";
@@ -34,14 +34,16 @@ type Props = {
 };
 
 export default function PassengerHomeScreen({ originPoint, destinationPoint, onPickOrigin, onPickDestination, distanceKm, suggestedPrice, minPrice, maxPrice, passengerPrice, setPassengerPrice, passengerNote, setPassengerNote, isPeakHour, setIsPeakHour, safeNightMode, setSafeNightMode, quietMode, setQuietMode, onCreateRide, saving }: Props) {
+  const { width } = useWindowDimensions();
+  const narrow = width < 390;
   const proposedPrice = toNumber(passengerPrice, suggestedPrice);
   const priceError = passengerPrice.trim() ? validatePrice(proposedPrice, minPrice, maxPrice) : "Ingresa la tarifa que deseas proponer.";
   const noteLength = passengerNote.length;
 
   return (
     <View>
-      <Text style={sharedStyles.title}>Solicitar viaje en Trujillo</Text>
-      <Text style={sharedStyles.subtitle}>Define tu ruta, revisa el precio inteligente y propone una tarifa dentro de un rango justo antes de recibir contraofertas.</Text>
+      <Text style={sharedStyles.title}>Solicitar viaje</Text>
+      <Text style={sharedStyles.subtitle}>Ruta, precio inteligente y preferencias en una sola vista.</Text>
       <View style={styles.caseSummary}>
         <View style={styles.caseAvatar}><Text style={styles.caseAvatarText}>L</Text></View>
         <View style={styles.caseCopy}>
@@ -51,8 +53,8 @@ export default function PassengerHomeScreen({ originPoint, destinationPoint, onP
         <Text style={styles.casePrice}>S/ {suggestedPrice.toFixed(2)}</Text>
       </View>
       <AppCard>
-        <LocationSummary title="Origen" point={originPoint} onPress={onPickOrigin} />
-        <LocationSummary title="Destino" point={destinationPoint} onPress={onPickDestination} />
+        <LocationSummary title="Origen" point={originPoint} onPress={onPickOrigin} narrow={narrow} />
+        <LocationSummary title="Destino" point={destinationPoint} onPress={onPickDestination} narrow={narrow} />
         <View style={styles.chipsWrap}>
           <ToggleChip label="Hora punta" active={isPeakHour} onPress={() => setIsPeakHour(!isPeakHour)} />
           <ToggleChip label="Viaje seguro nocturno" active={safeNightMode} onPress={() => setSafeNightMode(!safeNightMode)} />
@@ -93,47 +95,49 @@ export default function PassengerHomeScreen({ originPoint, destinationPoint, onP
           <Text style={styles.lockTitle}>Precio protegido: cero cobros sorpresa</Text>
           <Text style={styles.lockText}>Cuando aceptes una oferta, la tarifa queda pactada, visible para ambos y se usa como evidencia si alguien intenta cambiar el trato.</Text>
         </View>
-        <AppButton title="Publicar solicitud segura" onPress={onCreateRide} loading={saving} />
+        <AppButton title="Publicar solicitud segura" icon="shield-check-outline" onPress={onCreateRide} loading={saving} />
       </AppCard>
     </View>
   );
 }
 
-function LocationSummary({ title, point, onPress }: { title: string; point: RoutePoint; onPress: () => void }) {
+function LocationSummary({ title, point, onPress, narrow }: { title: string; point: RoutePoint; onPress: () => void; narrow: boolean }) {
   return (
-    <View style={styles.locationBox}>
+    <View style={[styles.locationBox, narrow && styles.narrowLocationBox]}>
       <View style={styles.locationCopy}>
         <Text style={styles.locationLabel}>{title}</Text>
         <Text style={styles.locationName}>{point.name}</Text>
         <Text style={styles.coords}>Punto elegido en el mapa de Trujillo</Text>
       </View>
-      <TouchableOpacity style={styles.mapButton} onPress={onPress}><Text style={styles.mapText}>Elegir</Text></TouchableOpacity>
+      <TouchableOpacity style={[styles.mapButton, narrow && styles.narrowMapButton]} onPress={onPress}><Text style={styles.mapText}>Elegir</Text></TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  caseSummary: { flexDirection: "row", alignItems: "center", gap: 12, backgroundColor: colors.ink, borderRadius: 12, padding: 14, marginBottom: 14, flexWrap: "wrap" },
+  caseSummary: { flexDirection: "row", alignItems: "center", gap: 12, backgroundColor: colors.ink, borderRadius: 20, padding: 16, marginBottom: 16, flexWrap: "wrap" },
   caseCopy: { flex: 1, minWidth: 180 },
-  caseAvatar: { width: 46, height: 46, borderRadius: 12, backgroundColor: colors.amber, alignItems: "center", justifyContent: "center" },
+  caseAvatar: { width: 46, height: 46, borderRadius: 20, backgroundColor: colors.amber, alignItems: "center", justifyContent: "center" },
   caseAvatarText: { color: colors.ink, fontWeight: "900", fontSize: 20 },
   caseTitle: { color: "#FFFFFF", fontWeight: "900", marginBottom: 3 },
-  caseText: { color: "#CBD5E1", lineHeight: 18, fontSize: 13 },
+  caseText: { color: "#C8CED8", lineHeight: 18, fontSize: 13 },
   casePrice: { color: "#FFFFFF", fontWeight: "900", fontSize: 18, marginLeft: "auto" },
-  locationBox: { flexDirection: "row", gap: 12, alignItems: "center", backgroundColor: colors.surfaceSoft, borderWidth: 1, borderColor: colors.border, borderRadius: 12, padding: 14, marginBottom: 12, flexWrap: "wrap" },
+  locationBox: { flexDirection: "row", gap: 12, alignItems: "center", backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border, borderRadius: 20, padding: 14, marginBottom: 12, flexWrap: "wrap" },
+  narrowLocationBox: { alignItems: "stretch", gap: 8, padding: 12 },
   locationCopy: { flex: 1, minWidth: 190 },
   locationLabel: { color: colors.textMuted, fontWeight: "800", fontSize: 12, marginBottom: 3 },
   locationName: { color: colors.text, fontWeight: "900", fontSize: 16 },
   coords: { color: colors.textMuted, fontSize: 12, marginTop: 2 },
-  mapButton: { backgroundColor: colors.primary, paddingHorizontal: 14, paddingVertical: 10, borderRadius: 999, marginLeft: "auto" },
+  mapButton: { backgroundColor: colors.ink, paddingHorizontal: 14, paddingVertical: 10, borderRadius: 20, marginLeft: "auto" },
+  narrowMapButton: { width: "100%", marginLeft: 0, alignItems: "center" },
   mapText: { color: "#FFFFFF", fontWeight: "900" },
   chipsWrap: { flexDirection: "row", flexWrap: "wrap", marginVertical: 4 },
   note: { minHeight: 88, textAlignVertical: "top" },
   inputError: { borderColor: colors.danger, backgroundColor: "#FFF7F7" },
-  lockBox: { backgroundColor: colors.successSoft, padding: 13, borderRadius: 12, marginBottom: 8, borderWidth: 1, borderColor: "#B7E8CF" },
+  lockBox: { backgroundColor: colors.successSoft, padding: 14, borderRadius: 20, marginBottom: 8 },
   lockTitle: { color: colors.secondaryDark, fontWeight: "900", marginBottom: 3 },
   lockText: { color: colors.secondaryDark, lineHeight: 19 },
-  nightBox: { backgroundColor: colors.primarySoft, borderRadius: 12, padding: 13, marginTop: 6, marginBottom: 2, borderWidth: 1, borderColor: "#C7D7FE" },
+  nightBox: { backgroundColor: colors.primarySoft, borderRadius: 20, padding: 13, marginTop: 6, marginBottom: 2 },
   nightTitle: { color: colors.primaryDark, fontWeight: "900", marginBottom: 4 },
   nightText: { color: colors.primaryDark, lineHeight: 20, fontWeight: "700" },
 });

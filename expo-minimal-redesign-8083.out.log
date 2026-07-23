@@ -1,0 +1,20 @@
+
+> smart-negotiation-hub@1.0.0 web
+> expo start --web --port 8083
+
+Starting project at C:\Users\luist\Downloads\PROYECTODISEÑO\smart-negotiation-hub
+React Compiler enabled
+Starting Metro Bundler
+Waiting on http://localhost:8083
+Logs for your project will appear below.
+Web node_modules\expo-router\entry.js ▓░░░░░░░░░░░░░░░  8.7% ( 5/17)
+λ node_modules\expo-router\node\render.js ▓▓░░░░░░░░░░░░░░ 17.3% (117/281)
+Web node_modules\expo-router\entry.js ▓▓▓▓░░░░░░░░░░░░ 25.0% ( 20/111)
+λ node_modules\expo-router\node\render.js ▓▓▓░░░░░░░░░░░░░ 20.7% (157/345)
+Web node_modules\expo-router\entry.js ▓▓▓▓░░░░░░░░░░░░ 25.0% ( 36/153)
+λ node_modules\expo-router\node\render.js ▓▓▓▓▓▓░░░░░░░░░░ 43.0% (309/471)
+λ Bundled 11376ms node_modules\expo-router\node\render.js (1007 modules)
+Web node_modules\expo-router\entry.js ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░ 99.9% (901/901)
+Web Bundled 13603ms node_modules\expo-router\entry.js (901 modules)
+Web Bundled 471ms node_modules\expo-router\entry.js (891 modules)
+ LOG  [web] Logs will appear in the browser console

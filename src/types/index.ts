@@ -2,14 +2,14 @@ export type Role = "passenger" | "driver";
 export type AuthMode = "login" | "register";
 
 export type ScreenName =
-  | "landing"
   | "auth"
   | "passengerHome"
   | "locationPicker"
   | "waitingOffers"
   | "driverHome"
   | "activeTrip"
-  | "rating";
+  | "rating"
+  | "profile";
 
 export type TripStatus = "driver_on_way" | "in_progress" | "completed" | "rated" | "cancelled";
 export type LocationTarget = "origin" | "destination";

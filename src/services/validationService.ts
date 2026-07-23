@@ -36,6 +36,7 @@ export function validateRegisterForm({
 export function validateLoginForm(email: string, password: string) {
   if (!isValidEmail(email)) return "Ingresa un correo valido.";
   if (!password) return "Ingresa tu contrasena.";
+  if (!isValidPassword(password)) return "La contrasena debe tener minimo 6 caracteres.";
   return null;
 }
 

@@ -32,8 +32,8 @@ export default function DriverHomeScreen({ driverProfile, pendingRides, driverAc
 
   return (
     <View>
-      <Text style={sharedStyles.title}>Panel del conductor verificado</Text>
-      <Text style={sharedStyles.subtitle}>Elige solicitudes, envia contraofertas rentables y protege tu puntaje evitando cancelaciones o cambios de precio.</Text>
+      <Text style={sharedStyles.title}>Panel conductor</Text>
+      <Text style={sharedStyles.subtitle}>Solicitudes claras y contraofertas rentables.</Text>
       {driverProfile && (
         <AppCard>
           <View style={sharedStyles.rowBetween}>
@@ -51,7 +51,7 @@ export default function DriverHomeScreen({ driverProfile, pendingRides, driverAc
             <Text style={styles.statText}>Estado: {getPenaltyLabel(driverProfile.penaltyStatus)}</Text>
           </View>
           <Text style={styles.infoText}>Un mejor historial aumenta la confianza del pasajero y ayuda a aceptar ofertas mas justas.</Text>
-          <AppButton title="Simular penalizacion por cancelacion" onPress={onPenalty} variant="warning" />
+          <AppButton title="Simular penalizacion por cancelacion" icon="alert-outline" onPress={onPenalty} variant="warning" />
         </AppCard>
       )}
       {driverActiveTrip && (
@@ -63,7 +63,7 @@ export default function DriverHomeScreen({ driverProfile, pendingRides, driverAc
           <Text style={sharedStyles.text}>B: {driverActiveTrip.destinationName}</Text>
           <Text style={sharedStyles.text}>Estado: {getTripStatusLabel(driverActiveTrip.status)}</Text>
           <Text style={styles.locked}>Precio protegido: S/ {driverActiveTrip.finalPrice.toFixed(2)}</Text>
-          <AppButton title="Ver viaje activo" onPress={() => onOpenActiveTrip(driverActiveTrip)} />
+          <AppButton title="Ver viaje activo" icon="map-marker-path" onPress={() => onOpenActiveTrip(driverActiveTrip)} />
         </AppCard>
       )}
       <AppCard>
@@ -99,9 +99,9 @@ export default function DriverHomeScreen({ driverProfile, pendingRides, driverAc
           {ride.safeNightMode && <Text style={styles.safe}>Viaje seguro nocturno solicitado: prioriza verificacion y ruta compartida.</Text>}
           {ride.quietMode && <Text style={styles.safe}>Preferencia: modo silencioso.</Text>}
           {!!ride.passengerNote && <Text style={sharedStyles.text}>Nota: {ride.passengerNote}</Text>}
-          <AppButton title={`Aceptar precio protegido S/ ${ride.passengerPrice.toFixed(2)}`} onPress={() => onSendOffer(ride, ride.passengerPrice)} loading={saving} />
-          <AppButton title="Enviar contraoferta" onPress={() => onSendOffer(ride)} variant="secondary" loading={saving} />
-          <AppButton title="Simular cancelacion" onPress={() => onCancelRide(ride)} variant="ghost" />
+          <AppButton title={`Aceptar precio protegido S/ ${ride.passengerPrice.toFixed(2)}`} icon="shield-check-outline" onPress={() => onSendOffer(ride, ride.passengerPrice)} loading={saving} />
+          <AppButton title="Enviar contraoferta" icon="swap-horizontal" onPress={() => onSendOffer(ride)} variant="secondary" loading={saving} />
+          <AppButton title="Simular cancelacion" icon="close-circle-outline" onPress={() => onCancelRide(ride)} variant="ghost" />
         </AppCard>
       ))}
     </View>
@@ -115,10 +115,10 @@ function getPenaltyLabel(status: DriverProfile["penaltyStatus"]) {
 }
 
 const styles = StyleSheet.create({
-  locked: { color: colors.secondaryDark, fontWeight: "900", backgroundColor: colors.successSoft, padding: 10, borderRadius: 10, marginTop: 6, marginBottom: 6, borderWidth: 1, borderColor: "#B7E8CF" },
+  locked: { color: colors.secondaryDark, fontWeight: "900", backgroundColor: colors.successSoft, padding: 12, borderRadius: 20, marginTop: 6, marginBottom: 6 },
   safe: { color: colors.primaryDark, fontWeight: "900", marginBottom: 5, lineHeight: 20 },
   inputWarning: { borderColor: colors.warning, backgroundColor: "#FFFBEB" },
   driverStats: { flexDirection: "row", flexWrap: "wrap", gap: 8, marginVertical: 8 },
-  statText: { backgroundColor: colors.surfaceSoft, borderWidth: 1, borderColor: colors.border, borderRadius: 999, paddingHorizontal: 10, paddingVertical: 6, color: colors.text, fontWeight: "800", fontSize: 12 },
+  statText: { backgroundColor: colors.surfaceSoft, borderWidth: 1, borderColor: colors.border, borderRadius: 20, paddingHorizontal: 10, paddingVertical: 6, color: colors.text, fontWeight: "800", fontSize: 12 },
   infoText: { color: colors.textMuted, lineHeight: 20, marginBottom: 10 },
 });

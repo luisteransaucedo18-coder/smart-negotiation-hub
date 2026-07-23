@@ -22,7 +22,7 @@ export default function EmergencyBanner({ trip, role }: { trip: Trip; role: Role
 }
 
 const styles = StyleSheet.create({
-  box: { backgroundColor: colors.dangerSoft, borderColor: "#FCA5A5", borderWidth: 1, padding: 15, borderRadius: 16, marginBottom: 16 },
+  box: { backgroundColor: colors.dangerSoft, borderColor: "#FCA5A5", borderWidth: 1, padding: 15, borderRadius: 20, marginBottom: 16 },
   title: { color: "#991B1B", fontSize: 17, fontWeight: "900", marginBottom: 6 },
   text: { color: "#7F1D1D", lineHeight: 20, marginBottom: 6 },
   step: { color: "#991B1B", fontWeight: "700", marginTop: 3 },

@@ -14,6 +14,8 @@ export function getErrorMessage(error: unknown) {
   if (code === "unavailable") return "Firestore no esta disponible en este momento. Intentalo nuevamente.";
 
   if (error instanceof Error && error.message === "MISSING_APPLICATION_PROFILE") return "La cuenta existe en Firebase Auth, pero no tiene perfil en Firestore. Elige el rol correcto e intenta ingresar de nuevo para reconstruirlo.";
+  if (error instanceof Error && error.message === "ROLE_MISMATCH_DRIVER") return "Esta cuenta esta registrada como conductor. Cambia el tipo de usuario a Conductor para ingresar.";
+  if (error instanceof Error && error.message === "ROLE_MISMATCH_PASSENGER") return "Esta cuenta esta registrada como pasajero. Cambia el tipo de usuario a Pasajero para ingresar.";
   if (error instanceof Error && error.message.includes("ERR_BLOCKED_BY_CLIENT")) return "El navegador o una extension esta bloqueando Firestore. Desactiva Brave Shields/adblock para localhost o prueba en Chrome/Edge sin extensiones.";
   if (error instanceof Error) return error.message;
   return "Ocurrio un error inesperado.";

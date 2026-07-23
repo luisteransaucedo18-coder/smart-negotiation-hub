@@ -27,15 +27,15 @@ export default function PriceCard({ suggestedPrice, minPrice, maxPrice, distance
 }
 
 const styles = StyleSheet.create({
-  box: { backgroundColor: colors.cyanSoft, borderRadius: 12, padding: 16, marginVertical: 12, borderWidth: 1, borderColor: "#A5F3FC" },
+  box: { backgroundColor: colors.surface, borderRadius: 20, padding: 16, marginVertical: 12, borderWidth: 1, borderColor: colors.border },
   topRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start", gap: 12, flexWrap: "wrap" },
   priceGroup: { flex: 1, minWidth: 180 },
-  label: { color: colors.primaryDark, fontWeight: "900", marginBottom: 4 },
+  label: { color: colors.textMuted, fontWeight: "800", marginBottom: 4, fontSize: 12 },
   price: { fontSize: 29, fontWeight: "900", color: colors.text },
   help: { color: colors.textMuted, marginTop: 7, lineHeight: 20 },
-  range: { marginTop: 8, color: colors.primaryDark, fontWeight: "900" },
+  range: { marginTop: 8, color: colors.text, fontWeight: "900" },
   factorRow: { flexDirection: "row", flexWrap: "wrap", gap: 8, marginTop: 10 },
-  factor: { backgroundColor: colors.surface, color: colors.primaryDark, fontWeight: "800", paddingHorizontal: 10, paddingVertical: 6, borderRadius: 999, fontSize: 12 },
-  lockBadge: { backgroundColor: colors.successSoft, paddingHorizontal: 10, paddingVertical: 7, borderRadius: 999, borderWidth: 1, borderColor: "#B7E8CF" },
+  factor: { backgroundColor: colors.primarySoft, color: colors.primaryDark, fontWeight: "800", paddingHorizontal: 10, paddingVertical: 6, borderRadius: 20, fontSize: 12 },
+  lockBadge: { backgroundColor: colors.successSoft, paddingHorizontal: 10, paddingVertical: 7, borderRadius: 20, borderWidth: 0 },
   lockText: { color: colors.secondaryDark, fontWeight: "900", fontSize: 11 },
 });
