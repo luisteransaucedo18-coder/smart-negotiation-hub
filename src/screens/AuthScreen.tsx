@@ -39,21 +39,21 @@ export default function AuthScreen(props: Props) {
   const register = props.authMode === "register";
   const normalizedPlate = props.plate.trim().toUpperCase();
   const { height, width } = useWindowDimensions();
-  const compactLogin = !register && (height < 820 || width < 390);
+  const compactLogin = !register && (height < 900 || width <= 480);
   const editingLogin = !register && !!props.keyboardVisible;
   const loginDisabled = !register && (!isValidEmail(props.email) || !isValidPassword(props.password));
 
   return (
-    <View style={[styles.screen, !register && !editingLogin && styles.loginScreen, editingLogin && styles.editingLoginScreen]}>
+    <View style={[styles.screen, !register && !editingLogin && !compactLogin && styles.loginScreen, (!register && compactLogin) && styles.compactLoginScreen, editingLogin && styles.editingLoginScreen]}>
       {!editingLogin && <View style={[styles.brandCard, compactLogin && styles.compactBrandCard]}>
         <View style={styles.brandRow}>
-          <SmartHubLogo showText={false} size={42} />
+          <SmartHubLogo showText={false} size={compactLogin ? 36 : 42} />
           <View>
             <Text style={styles.brandName}>SmartHub</Text>
           <Text style={styles.brandTagline}>viajes negociados</Text>
           </View>
         </View>
-        <View style={styles.secureBadge}>
+        <View style={[styles.secureBadge, compactLogin && styles.compactSecureBadge]}>
           <MaterialCommunityIcons name="shield-check-outline" size={15} color={colors.secondaryDark} />
           <Text style={styles.secureText}>Tarifa protegida</Text>
         </View>
@@ -61,8 +61,8 @@ export default function AuthScreen(props: Props) {
 
       {!editingLogin && <View style={[styles.heroBlock, !register && styles.loginHeroBlock, compactLogin && styles.compactHeroBlock]}>
         {register && <View style={styles.logo}><SmartHubLogo showText={false} size={66} /></View>}
-        <Text style={[styles.title, compactLogin && styles.compactTitle]}>{register ? "Crear cuenta" : "Acceso seguro"}</Text>
-        <Text style={[styles.subtitle, compactLogin && styles.compactSubtitle]}>{register ? "Configura tu perfil para activar negociacion, confianza y seguridad en tus viajes." : "Continua con viajes negociados, perfiles verificados y seguridad visible."}</Text>
+        <Text style={[styles.title, !register && styles.welcomeTitle, compactLogin && styles.compactTitle]}>{register ? "Crear cuenta" : "Bienvenido a SmartHub"}</Text>
+        {register && <Text style={[styles.subtitle, compactLogin && styles.compactSubtitle]}>Configura tu perfil para activar negociacion, confianza y seguridad en tus viajes.</Text>}
       </View>}
 
       <View style={[styles.formCard, compactLogin && styles.compactFormCard, editingLogin && styles.editingFormCard]}>
@@ -190,41 +190,44 @@ export default function AuthScreen(props: Props) {
 const styles = StyleSheet.create({
   screen: { width: "100%", maxWidth: 560, alignSelf: "center" },
   loginScreen: { flex: 1, justifyContent: "center" },
+  compactLoginScreen: { flex: 1, justifyContent: "flex-start" },
   editingLoginScreen: { flex: 1, justifyContent: "flex-start", paddingTop: 0 },
   brandCard: { backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border, borderRadius: 20, padding: 14, marginBottom: 22, flexDirection: "row", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap" },
-  compactBrandCard: { marginBottom: 12, padding: 10 },
+  compactBrandCard: { marginBottom: 10, padding: 9 },
   brandRow: { flexDirection: "row", alignItems: "center", gap: 10, flexShrink: 1 },
   brandName: { color: colors.text, fontSize: 19, fontWeight: "900" },
   brandTagline: { color: colors.textMuted, fontSize: 12, fontWeight: "700", marginTop: 1 },
   secureBadge: { backgroundColor: colors.secondarySoft, borderRadius: 20, paddingHorizontal: 10, paddingVertical: 7, flexDirection: "row", alignItems: "center", gap: 5 },
+  compactSecureBadge: { paddingHorizontal: 9, paddingVertical: 6 },
   secureText: { color: colors.secondaryDark, fontWeight: "800", fontSize: 11 },
   heroBlock: { alignItems: "center", marginBottom: 18 },
   loginHeroBlock: { alignItems: "flex-start", marginBottom: 16 },
-  compactHeroBlock: { marginBottom: 12 },
+  compactHeroBlock: { marginBottom: 10 },
   logo: { alignItems: "center", marginBottom: 10 },
   title: { color: colors.text, fontSize: 30, fontWeight: "900", lineHeight: 36, textAlign: "center" },
-  compactTitle: { fontSize: 26, lineHeight: 31, textAlign: "left" },
+  welcomeTitle: { fontSize: 27, lineHeight: 32, textAlign: "left" },
+  compactTitle: { fontSize: 24, lineHeight: 29, textAlign: "left" },
   subtitle: { color: colors.textMuted, lineHeight: 22, textAlign: "center", marginTop: 8, maxWidth: 430 },
   compactSubtitle: { fontSize: 13, lineHeight: 19, marginTop: 4, textAlign: "left" },
   formCard: { backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border, borderRadius: 20, padding: 18, marginBottom: 18 },
-  compactFormCard: { padding: 14, marginBottom: 0 },
-  editingFormCard: { padding: 14, marginBottom: 0 },
+  compactFormCard: { padding: 13, marginBottom: 0 },
+  editingFormCard: { padding: 13, marginBottom: 0 },
   formHeader: { marginBottom: 16 },
-  compactFormHeader: { marginBottom: 10 },
+  compactFormHeader: { marginBottom: 8 },
   editingFormHeader: { marginBottom: 10 },
   formTitle: { color: colors.text, fontSize: 19, fontWeight: "900", marginBottom: 4 },
   formHint: { color: colors.textMuted, lineHeight: 20, fontWeight: "700" },
   label: { ...sharedStyles.label, color: colors.text, marginTop: 2 },
-  input: { ...sharedStyles.input, borderRadius: 20, borderWidth: 1.5, minHeight: 54, paddingHorizontal: 16, backgroundColor: "#FBFCFE" },
-  editingInput: { minHeight: 48, paddingVertical: 10, marginBottom: 6 },
-  passwordField: { flexDirection: "row", alignItems: "center", borderRadius: 20, borderWidth: 1.5, borderColor: colors.border, minHeight: 54, paddingLeft: 16, paddingRight: 6, marginBottom: 8, backgroundColor: "#FBFCFE" },
-  editingPasswordField: { minHeight: 48, marginBottom: 6 },
-  passwordInput: { flex: 1, minHeight: 50, color: colors.text, fontSize: 16, paddingVertical: 12, paddingRight: 8 },
-  editingPasswordInput: { minHeight: 44, paddingVertical: 9 },
+  input: { ...sharedStyles.input, borderRadius: 20, borderWidth: 1.5, minHeight: 52, paddingHorizontal: 16, backgroundColor: "#FBFCFE" },
+  editingInput: { minHeight: 46, paddingVertical: 9, marginBottom: 6 },
+  passwordField: { flexDirection: "row", alignItems: "center", borderRadius: 20, borderWidth: 1.5, borderColor: colors.border, minHeight: 52, paddingLeft: 16, paddingRight: 6, marginBottom: 8, backgroundColor: "#FBFCFE" },
+  editingPasswordField: { minHeight: 46, marginBottom: 6 },
+  passwordInput: { flex: 1, minHeight: 48, color: colors.text, fontSize: 16, paddingVertical: 10, paddingRight: 8 },
+  editingPasswordInput: { minHeight: 42, paddingVertical: 8 },
   eyeButton: { width: 44, height: 44, borderRadius: 20, alignItems: "center", justifyContent: "center" },
-  roleRow: { flexDirection: "row", gap: 10, marginBottom: 14 },
+  roleRow: { flexDirection: "row", gap: 10, marginBottom: 12 },
   editingRoleRow: { marginBottom: 10 },
-  roleButton: { flex: 1, backgroundColor: colors.surfaceSoft, borderWidth: 1, borderColor: colors.border, borderRadius: 20, paddingVertical: 13, paddingHorizontal: 12, alignItems: "center", justifyContent: "center", flexDirection: "row", gap: 7 },
+  roleButton: { flex: 1, backgroundColor: colors.surfaceSoft, borderWidth: 1, borderColor: colors.border, borderRadius: 20, paddingVertical: 11, paddingHorizontal: 12, alignItems: "center", justifyContent: "center", flexDirection: "row", gap: 7 },
   editingRoleButton: { paddingVertical: 10 },
   activeRole: { backgroundColor: colors.ink, borderColor: colors.ink },
   roleText: { color: colors.textMuted, fontWeight: "900" },
@@ -235,5 +238,5 @@ const styles = StyleSheet.create({
   errorTitle: { color: "#991B1B", fontWeight: "900", marginBottom: 3 },
   errorText: { color: "#7F1D1D", lineHeight: 19, fontWeight: "700" },
   errorHint: { color: "#7F1D1D", lineHeight: 18, marginTop: 5 },
-  primaryButton: { borderRadius: 20, minHeight: 54 },
+  primaryButton: { borderRadius: 20 },
 });

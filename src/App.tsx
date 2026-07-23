@@ -349,7 +349,7 @@ export default function SmartHubApp() {
   const navigationTrip = activeTrip || driverActiveTrip;
   const showNavigation = !!profile && screen !== "locationPicker";
   const isLoginScreen = screen === "auth" && authMode === "login";
-  const compactDevice = width < 390 || height < 820;
+  const compactDevice = width <= 480 || height < 900;
   const lockLoginScroll = isLoginScreen && !keyboardVisible && !compactDevice;
 
   function handleNavigate(target: ScreenName) {
